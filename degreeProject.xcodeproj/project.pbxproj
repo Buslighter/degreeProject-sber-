@@ -7,26 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		150A9C4127E61E1C0009292E /* IncomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150A9C4027E61E1C0009292E /* IncomeTableViewCell.swift */; };
 		15767E3227E3E1D4006AA9F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15767E3127E3E1D4006AA9F1 /* AppDelegate.swift */; };
 		15767E3427E3E1D4006AA9F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15767E3327E3E1D4006AA9F1 /* SceneDelegate.swift */; };
-		15767E3627E3E1D4006AA9F1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15767E3527E3E1D4006AA9F1 /* ViewController.swift */; };
+		15767E3627E3E1D4006AA9F1 /* GraphicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15767E3527E3E1D4006AA9F1 /* GraphicViewController.swift */; };
 		15767E3927E3E1D4006AA9F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15767E3727E3E1D4006AA9F1 /* Main.storyboard */; };
 		15767E3C27E3E1D4006AA9F1 /* degreeProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 15767E3A27E3E1D4006AA9F1 /* degreeProject.xcdatamodeld */; };
 		15767E3E27E3E1E1006AA9F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15767E3D27E3E1E1006AA9F1 /* Assets.xcassets */; };
 		15767E4127E3E1E1006AA9F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15767E3F27E3E1E1006AA9F1 /* LaunchScreen.storyboard */; };
+		15A766C227E4963E00D37700 /* ExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A766C127E4963E00D37700 /* ExpensesViewController.swift */; };
+		15A766C427E4964700D37700 /* IncomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A766C327E4964700D37700 /* IncomeViewController.swift */; };
+		15A766C627E60CE800D37700 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A766C527E60CE800D37700 /* MainTabBarController.swift */; };
 		98FCFB1D6334798634FF9612 /* Pods_degreeProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A12DD9606FBA5A8D8CFCF6AC /* Pods_degreeProject.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		150A9C4027E61E1C0009292E /* IncomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeTableViewCell.swift; sourceTree = "<group>"; };
 		15767E2E27E3E1D4006AA9F1 /* degreeProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = degreeProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15767E3127E3E1D4006AA9F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15767E3327E3E1D4006AA9F1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		15767E3527E3E1D4006AA9F1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		15767E3527E3E1D4006AA9F1 /* GraphicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicViewController.swift; sourceTree = "<group>"; };
 		15767E3827E3E1D4006AA9F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		15767E3B27E3E1D4006AA9F1 /* degreeProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = degreeProject.xcdatamodel; sourceTree = "<group>"; };
 		15767E3D27E3E1E1006AA9F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		15767E4027E3E1E1006AA9F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		15767E4227E3E1E1006AA9F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		15A766C127E4963E00D37700 /* ExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
+		15A766C327E4964700D37700 /* IncomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeViewController.swift; sourceTree = "<group>"; };
+		15A766C527E60CE800D37700 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		6BFA50CA981AA523D98C8E5D /* Pods-degreeProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-degreeProject.release.xcconfig"; path = "Target Support Files/Pods-degreeProject/Pods-degreeProject.release.xcconfig"; sourceTree = "<group>"; };
 		77C118E3444AF19F79B21C5A /* Pods-degreeProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-degreeProject.debug.xcconfig"; path = "Target Support Files/Pods-degreeProject/Pods-degreeProject.debug.xcconfig"; sourceTree = "<group>"; };
 		A12DD9606FBA5A8D8CFCF6AC /* Pods_degreeProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_degreeProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +52,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		150A9C4227E621850009292E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				15A766C327E4964700D37700 /* IncomeViewController.swift */,
+				15767E3527E3E1D4006AA9F1 /* GraphicViewController.swift */,
+				15A766C127E4963E00D37700 /* ExpensesViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		150A9C4327E621A10009292E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				150A9C4027E61E1C0009292E /* IncomeTableViewCell.swift */,
+				15A766C527E60CE800D37700 /* MainTabBarController.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		15767E2527E3E1D3006AA9F1 = {
 			isa = PBXGroup;
 			children = (
@@ -67,7 +94,8 @@
 			children = (
 				15767E3127E3E1D4006AA9F1 /* AppDelegate.swift */,
 				15767E3327E3E1D4006AA9F1 /* SceneDelegate.swift */,
-				15767E3527E3E1D4006AA9F1 /* ViewController.swift */,
+				150A9C4227E621850009292E /* Controllers */,
+				150A9C4327E621A10009292E /* Cells */,
 				15767E3727E3E1D4006AA9F1 /* Main.storyboard */,
 				15767E3D27E3E1E1006AA9F1 /* Assets.xcassets */,
 				15767E3F27E3E1E1006AA9F1 /* LaunchScreen.storyboard */,
@@ -83,7 +111,6 @@
 				77C118E3444AF19F79B21C5A /* Pods-degreeProject.debug.xcconfig */,
 				6BFA50CA981AA523D98C8E5D /* Pods-degreeProject.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -210,9 +237,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15767E3627E3E1D4006AA9F1 /* ViewController.swift in Sources */,
+				15767E3627E3E1D4006AA9F1 /* GraphicViewController.swift in Sources */,
 				15767E3C27E3E1D4006AA9F1 /* degreeProject.xcdatamodeld in Sources */,
+				150A9C4127E61E1C0009292E /* IncomeTableViewCell.swift in Sources */,
 				15767E3227E3E1D4006AA9F1 /* AppDelegate.swift in Sources */,
+				15A766C627E60CE800D37700 /* MainTabBarController.swift in Sources */,
+				15A766C427E4964700D37700 /* IncomeViewController.swift in Sources */,
+				15A766C227E4963E00D37700 /* ExpensesViewController.swift in Sources */,
 				15767E3427E3E1D4006AA9F1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

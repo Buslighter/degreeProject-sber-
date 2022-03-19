@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class GraphicViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
