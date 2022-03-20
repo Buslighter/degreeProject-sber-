@@ -102,6 +102,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Текущий баланс" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XV1-ww-lQM">
+                                <rect key="frame" x="20" y="79" width="128" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEG-wg-sOh">
                                 <rect key="frame" x="16" y="709" width="382" height="48"/>
                                 <color key="backgroundColor" systemColor="linkColor"/>
@@ -116,32 +122,71 @@
                                     <action selector="addIncomeAction:" destination="7sY-NJ-PGT" eventType="touchUpInside" id="bC2-8l-9hN"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Текущий баланс" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XV1-ww-lQM">
-                                <rect key="frame" x="20" y="79" width="128" height="19.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view hidden="YES" alpha="0.34999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wpu-XO-Nog">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wpu-XO-Nog">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b3H-qs-WRQ">
-                                        <rect key="frame" x="15" y="709" width="384" height="48"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" systemColor="linkColor"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Добавить доход">
-                                            <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </buttonConfiguration>
-                                    </button>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Сумма" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oTU-RS-eXn">
-                                        <rect key="frame" x="20" y="623" width="374" height="64"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
+                                    <view alpha="0.34999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dmh-WC-Ph5">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5NE-lq-duy">
+                                        <rect key="frame" x="0.0" y="637" width="414" height="168"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Сумма" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oTU-RS-eXn">
+                                                <rect key="frame" x="15" y="44" width="384" height="34"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                <connections>
+                                                    <action selector="summTextfieldAction:" destination="7sY-NJ-PGT" eventType="editingChanged" id="0n0-pm-gb6"/>
+                                                    <action selector="summTextfieldAction:" destination="7sY-NJ-PGT" eventType="editingDidEnd" id="rLF-KT-3Rh"/>
+                                                </connections>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ank-vG-6gf">
+                                                <rect key="frame" x="15" y="92" width="384" height="48"/>
+                                                <color key="backgroundColor" systemColor="linkColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="48" id="nhB-xQ-eZ5"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Добавить доход">
+                                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="addIncomeAction:" destination="7sY-NJ-PGT" eventType="touchUpInside" id="Yu4-MT-zNk"/>
+                                                    <action selector="addNewIncome:" destination="7sY-NJ-PGT" eventType="touchUpInside" id="QoE-ge-jds"/>
+                                                </connections>
+                                            </button>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сумма" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lh1-4s-0om">
+                                                <rect key="frame" x="15" y="26" width="43" height="16"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" red="0.61960792539999998" green="0.61960786580000005" blue="0.61960786580000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="oTU-RS-eXn" firstAttribute="leading" secondItem="5NE-lq-duy" secondAttribute="leading" constant="15" id="19q-aB-evs"/>
+                                            <constraint firstItem="ank-vG-6gf" firstAttribute="leading" secondItem="5NE-lq-duy" secondAttribute="leading" constant="15" id="7V4-iq-LOi"/>
+                                            <constraint firstItem="oTU-RS-eXn" firstAttribute="top" secondItem="Lh1-4s-0om" secondAttribute="bottom" constant="2" id="82g-6a-BaV"/>
+                                            <constraint firstItem="Lh1-4s-0om" firstAttribute="leading" secondItem="5NE-lq-duy" secondAttribute="leading" constant="15" id="Ctk-aN-qpJ"/>
+                                            <constraint firstAttribute="bottom" secondItem="ank-vG-6gf" secondAttribute="bottom" constant="28" id="Jna-gu-CWE"/>
+                                            <constraint firstAttribute="height" constant="168" id="KBN-sj-baq"/>
+                                            <constraint firstAttribute="trailing" secondItem="oTU-RS-eXn" secondAttribute="trailing" constant="15" id="Vzg-ax-Dwq"/>
+                                            <constraint firstItem="ank-vG-6gf" firstAttribute="top" secondItem="oTU-RS-eXn" secondAttribute="bottom" constant="14" id="cgl-KT-g8i"/>
+                                            <constraint firstAttribute="trailing" secondItem="ank-vG-6gf" secondAttribute="trailing" constant="15" id="dG9-8r-8Qk"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Dmh-WC-Ph5" firstAttribute="top" secondItem="wpu-XO-Nog" secondAttribute="top" id="PZE-3k-VPF"/>
+                                    <constraint firstItem="5NE-lq-duy" firstAttribute="leading" secondItem="wpu-XO-Nog" secondAttribute="leading" id="QZQ-1b-9Xp"/>
+                                    <constraint firstItem="Dmh-WC-Ph5" firstAttribute="leading" secondItem="wpu-XO-Nog" secondAttribute="leading" id="VGf-3U-m3B"/>
+                                    <constraint firstAttribute="bottom" secondItem="Dmh-WC-Ph5" secondAttribute="bottom" id="ePE-8w-g6k"/>
+                                    <constraint firstAttribute="trailing" secondItem="Dmh-WC-Ph5" secondAttribute="trailing" id="pig-a0-gEN"/>
+                                    <constraint firstAttribute="trailing" secondItem="5NE-lq-duy" secondAttribute="trailing" id="uSh-XZ-gq6"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="cAF-p9-8x5"/>
@@ -151,8 +196,9 @@
                             <constraint firstItem="eFM-hY-X31" firstAttribute="trailing" secondItem="cAF-p9-8x5" secondAttribute="trailing" id="2SD-1O-0lt"/>
                             <constraint firstItem="cAF-p9-8x5" firstAttribute="trailing" secondItem="wpu-XO-Nog" secondAttribute="trailing" id="7VE-Qi-5xm"/>
                             <constraint firstItem="nU4-fW-bac" firstAttribute="trailing" secondItem="bpY-zv-1gO" secondAttribute="trailing" id="7vd-K8-DRX"/>
+                            <constraint firstAttribute="bottom" secondItem="wpu-XO-Nog" secondAttribute="bottom" id="Aqk-6t-tJj"/>
+                            <constraint firstItem="cAF-p9-8x5" firstAttribute="bottom" secondItem="5NE-lq-duy" secondAttribute="bottom" constant="8" id="B2Y-99-fEl"/>
                             <constraint firstItem="cAF-p9-8x5" firstAttribute="bottom" secondItem="jEG-wg-sOh" secondAttribute="bottom" constant="56" id="C60-AL-R3M"/>
-                            <constraint firstAttribute="bottom" secondItem="wpu-XO-Nog" secondAttribute="bottom" id="Dko-Eq-pUJ"/>
                             <constraint firstItem="XV1-ww-lQM" firstAttribute="top" secondItem="bpY-zv-1gO" secondAttribute="bottom" id="N5T-aY-iWd"/>
                             <constraint firstItem="eFM-hY-X31" firstAttribute="top" secondItem="7yF-Ms-6WG" secondAttribute="bottom" id="Ply-Bf-8iu"/>
                             <constraint firstItem="7yF-Ms-6WG" firstAttribute="centerX" secondItem="4La-Jo-Adj" secondAttribute="centerX" id="RR3-AC-JIr"/>
@@ -177,6 +223,8 @@
                         <outlet property="addIncomeBut" destination="jEG-wg-sOh" id="KeT-Qs-tAC"/>
                         <outlet property="blackoutView" destination="wpu-XO-Nog" id="kSD-6c-gFb"/>
                         <outlet property="currentBalance" destination="nU4-fW-bac" id="vEr-1W-Dbi"/>
+                        <outlet property="summLabel" destination="Lh1-4s-0om" id="SJA-0a-Psp"/>
+                        <outlet property="summTextfield" destination="oTU-RS-eXn" id="ojX-JH-pDZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="opl-kl-I4c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

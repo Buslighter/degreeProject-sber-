@@ -8,7 +8,33 @@
 import UIKit
 
 class IncomeViewController: UIViewController {
-
+    var pIndicator = true
+    @IBAction func summTextfieldAction(_ sender: Any) {
+        var str = ""
+        let P = " Р"
+        str = summTextfield.text!
+        if pIndicator{
+            summTextfield.text! = summTextfield.text! + P
+//            str.removeLast()
+//            print(str)
+            pIndicator = false
+        } else{
+//            summTextfield.text! = ""
+//            print(str.last)
+            let index = str.index(ofAccessibilityElement: str.count-1)
+            
+            str.remove(at: str.index(str.startIndex, offsetBy: index))
+            summTextfield.text! = str + P
+//            str = summTextfield.text!
+//            str.removeLast()11
+        }
+        
+    }
+    @IBOutlet weak var summTextfield: UITextField!
+    @IBOutlet weak var summLabel: UILabel!
+    @IBAction func addNewIncome(_ sender: Any) {
+    
+    }
     @IBOutlet weak var blackoutView: UIView!
     @IBOutlet weak var currentBalance: UILabel!
     @IBOutlet weak var addIncomeBut: UIButton!
@@ -32,7 +58,8 @@ class IncomeViewController: UIViewController {
 //              }
         
         blackoutView.isHidden = false
-        
+        super.viewDidLoad()
+        summTextfield.becomeFirstResponder()
         
     }
     @IBOutlet weak var IncomeTableView: UITableView!
