@@ -6,12 +6,16 @@
 //
 
 import UIKit
-
+protocol delegateHeight{
+    func getTBHeight(_ TBHeight: CGFloat)
+}
 class MainTabBarController: UITabBarController {
-
+    @IBOutlet var thisTabBar: UITabBar!
     override func viewDidLoad() {
+        var delegate: delegateHeight?
         super.viewDidLoad()
-
+        delegate?.getTBHeight(thisTabBar.frame.height)
+        
         // Do any additional setup after loading the view.
     }
 //    override func viewWillLayoutSubviews() {

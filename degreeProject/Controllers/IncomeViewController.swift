@@ -9,6 +9,11 @@ import UIKit
 
 class IncomeViewController: UIViewController {
     var pIndicator = true
+    @IBOutlet weak var bottomConstraintInsertView: NSLayoutConstraint!
+    
+    @IBOutlet weak var tabBarIncome: UITabBarItem!
+    
+    
     @IBAction func summTextfieldAction(_ sender: Any) {
         var str = ""
         let P = " Р"
@@ -23,7 +28,7 @@ class IncomeViewController: UIViewController {
 //            print(str.last)
             let index = str.index(ofAccessibilityElement: str.count-1)
             
-            str.remove(at: str.index(str.startIndex, offsetBy: index))
+//            str.remove(at: str.index(str.startIndex, offsetBy: index))
             summTextfield.text! = str + P
 //            str = summTextfield.text!
 //            str.removeLast()11
@@ -34,37 +39,62 @@ class IncomeViewController: UIViewController {
     @IBOutlet weak var summLabel: UILabel!
     @IBAction func addNewIncome(_ sender: Any) {
     
+        
+        
+        
+        
+        summTextfield.resignFirstResponder()
+        blackoutView.isHidden = true
     }
     @IBOutlet weak var blackoutView: UIView!
     @IBOutlet weak var currentBalance: UILabel!
     @IBOutlet weak var addIncomeBut: UIButton!
     @IBAction func addIncomeAction(_ sender: Any) {
-//        func addblackout(){
-//      //            let backgroundView = UIView()
-//      //            backgroundView.backgroundColor = UIColor.black
-//      //            backgroundView.alpha = 0.6
-//      //            backgroundView.frame = self.view.frame
-//      //            self.view.addSubview(backgroundView)
-//      ////            containerViewIncome.isHidden = isInsertMode
-//      //            isInsertMode = true
-//      //
-//      //
-//      //        }
-//      //        addblackout()
-////              addIncomeView()
-////              func addIncomeView(){
-////                  let incomeInView = IncomeInputView(frame: CGRect(x: 0, y:mainView.frame.maxY, width: mainView.frame.width, height: 168))
-////                  self.view.addSubview(incomeInView)
-//              }
-        
         blackoutView.isHidden = false
         super.viewDidLoad()
-        summTextfield.becomeFirstResponder()
-        
+        func viewDidAppear(animated: Bool) {
+            super.viewDidAppear(animated)
+            summTextfield.becomeFirstResponder()
+            
+        }
+        viewDidAppear(animated: true)
+        print(bottomConstraintInsertView)
     }
+    
+    //Keyboard moves View
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if bottomConstraintInsertView.constant == 0 {
+                let tabBar = MainTabBarController()
+                
+                
+                bottomConstraintInsertView.constant = 0
+                bottomConstraintInsertView.constant = keyboardSize.height-tabBarIncome.accessibilityFrame.height
+                
+                print(tabBar.thisTabBar?.frame.height ?? 0)
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if bottomConstraintInsertView.constant != 0 {
+            bottomConstraintInsertView.constant = 0
+            }
+//        }
+    }
+    
+    
+    
     @IBOutlet weak var IncomeTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(IncomeViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(IncomeViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        
+        
         addIncomeBut.layer.cornerRadius = CGFloat(18)
         // Do any additional setup after loading the view.
     }
