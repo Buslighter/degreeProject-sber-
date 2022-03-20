@@ -122,14 +122,37 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view hidden="YES" alpha="0.34999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wpu-XO-Nog">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b3H-qs-WRQ">
+                                        <rect key="frame" x="15" y="709" width="384" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" systemColor="linkColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Добавить доход">
+                                            <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Сумма" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oTU-RS-eXn">
+                                        <rect key="frame" x="20" y="623" width="374" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="cAF-p9-8x5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="nU4-fW-bac" firstAttribute="top" secondItem="bpY-zv-1gO" secondAttribute="bottom" id="0Jz-Mq-51s"/>
                             <constraint firstItem="eFM-hY-X31" firstAttribute="trailing" secondItem="cAF-p9-8x5" secondAttribute="trailing" id="2SD-1O-0lt"/>
+                            <constraint firstItem="cAF-p9-8x5" firstAttribute="trailing" secondItem="wpu-XO-Nog" secondAttribute="trailing" id="7VE-Qi-5xm"/>
                             <constraint firstItem="nU4-fW-bac" firstAttribute="trailing" secondItem="bpY-zv-1gO" secondAttribute="trailing" id="7vd-K8-DRX"/>
                             <constraint firstItem="cAF-p9-8x5" firstAttribute="bottom" secondItem="jEG-wg-sOh" secondAttribute="bottom" constant="56" id="C60-AL-R3M"/>
+                            <constraint firstAttribute="bottom" secondItem="wpu-XO-Nog" secondAttribute="bottom" id="Dko-Eq-pUJ"/>
                             <constraint firstItem="XV1-ww-lQM" firstAttribute="top" secondItem="bpY-zv-1gO" secondAttribute="bottom" id="N5T-aY-iWd"/>
                             <constraint firstItem="eFM-hY-X31" firstAttribute="top" secondItem="7yF-Ms-6WG" secondAttribute="bottom" id="Ply-Bf-8iu"/>
                             <constraint firstItem="7yF-Ms-6WG" firstAttribute="centerX" secondItem="4La-Jo-Adj" secondAttribute="centerX" id="RR3-AC-JIr"/>
@@ -138,6 +161,8 @@
                             <constraint firstItem="7yF-Ms-6WG" firstAttribute="top" secondItem="nU4-fW-bac" secondAttribute="bottom" id="XJ3-Ey-7qC"/>
                             <constraint firstItem="cAF-p9-8x5" firstAttribute="trailing" secondItem="bpY-zv-1gO" secondAttribute="trailing" constant="20" id="d1e-JK-u9s"/>
                             <constraint firstItem="bpY-zv-1gO" firstAttribute="top" secondItem="cAF-p9-8x5" secondAttribute="top" constant="6" id="ewm-Zm-3oG"/>
+                            <constraint firstItem="wpu-XO-Nog" firstAttribute="top" secondItem="4La-Jo-Adj" secondAttribute="top" id="fvv-hS-8GP"/>
+                            <constraint firstItem="wpu-XO-Nog" firstAttribute="leading" secondItem="cAF-p9-8x5" secondAttribute="leading" id="j8W-SP-Dla"/>
                             <constraint firstItem="eFM-hY-X31" firstAttribute="leading" secondItem="cAF-p9-8x5" secondAttribute="leading" id="k6j-kW-WCu"/>
                             <constraint firstItem="jEG-wg-sOh" firstAttribute="leading" secondItem="cAF-p9-8x5" secondAttribute="leading" constant="16" id="uBd-Nk-hnd"/>
                             <constraint firstItem="cAF-p9-8x5" firstAttribute="trailing" secondItem="jEG-wg-sOh" secondAttribute="trailing" constant="16" id="y1P-jh-9lt"/>
@@ -150,6 +175,7 @@
                     <connections>
                         <outlet property="IncomeTableView" destination="eFM-hY-X31" id="S0N-j8-4nK"/>
                         <outlet property="addIncomeBut" destination="jEG-wg-sOh" id="KeT-Qs-tAC"/>
+                        <outlet property="blackoutView" destination="wpu-XO-Nog" id="kSD-6c-gFb"/>
                         <outlet property="currentBalance" destination="nU4-fW-bac" id="vEr-1W-Dbi"/>
                     </connections>
                 </viewController>

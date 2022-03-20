@@ -9,9 +9,31 @@ import UIKit
 
 class IncomeViewController: UIViewController {
 
+    @IBOutlet weak var blackoutView: UIView!
     @IBOutlet weak var currentBalance: UILabel!
     @IBOutlet weak var addIncomeBut: UIButton!
     @IBAction func addIncomeAction(_ sender: Any) {
+//        func addblackout(){
+//      //            let backgroundView = UIView()
+//      //            backgroundView.backgroundColor = UIColor.black
+//      //            backgroundView.alpha = 0.6
+//      //            backgroundView.frame = self.view.frame
+//      //            self.view.addSubview(backgroundView)
+//      ////            containerViewIncome.isHidden = isInsertMode
+//      //            isInsertMode = true
+//      //
+//      //
+//      //        }
+//      //        addblackout()
+////              addIncomeView()
+////              func addIncomeView(){
+////                  let incomeInView = IncomeInputView(frame: CGRect(x: 0, y:mainView.frame.maxY, width: mainView.frame.width, height: 168))
+////                  self.view.addSubview(incomeInView)
+//              }
+        
+        blackoutView.isHidden = false
+        
+        
     }
     @IBOutlet weak var IncomeTableView: UITableView!
     override func viewDidLoad() {
