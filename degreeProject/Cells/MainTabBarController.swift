@@ -7,25 +7,22 @@
 
 import UIKit
 protocol delegateHeight{
-    func getTBHeight(_ TBHeight: CGFloat)
+    func getTBHeight(_ TBHeight: Double)
 }
 class MainTabBarController: UITabBarController {
     @IBOutlet var thisTabBar: UITabBar!
     override func viewDidLoad() {
-        var delegate: delegateHeight?
-        super.viewDidLoad()
-        delegate?.getTBHeight(thisTabBar.frame.height)
         
+        super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-//    override func viewWillLayoutSubviews() {
-//        var tabFrame = self.tabBar.frame
-//            // - 40 is editable , the default value is 49 px, below lowers the tabbar and above increases the tab bar size
-//            var tabHeight = CGFloat(50)
-//            tabFrame.size.height = tabHeight
-//            tabFrame.origin.y = self.view.frame.size.height - tabHeight
-//            self.tabBar.frame = tabFrame
-//    }
+    override func viewWillLayoutSubviews() {
+        var delegate: delegateHeight?
+        let tabFrame = self.thisTabBar.frame
+            // - 40 is editable , the default value is 49 px, below lowers the tabbar and above increases the tab bar size
+        let tabHeight = tabFrame.height
+        delegate?.getTBHeight(tabHeight)
+    }
 
     /*
     // MARK: - Navigation
