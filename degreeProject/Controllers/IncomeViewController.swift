@@ -43,7 +43,7 @@ class IncomeViewController: UIViewController {
     @IBAction func addNewIncome(_ sender: Any) {
         let date = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.dateFormat = "dd.MM.yyyy"
         print(dateFormatter.string(from: date))
         let items = IncomeObject()
         try! self.realm.write{

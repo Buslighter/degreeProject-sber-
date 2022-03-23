@@ -21,6 +21,7 @@
 		15CDA1EC27E686B4006D3714 /* IncomeInsertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15CDA1EB27E686B3006D3714 /* IncomeInsertView.xib */; };
 		15CDA1F027E9A580006D3714 /* RealmPersitance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CDA1EF27E9A580006D3714 /* RealmPersitance.swift */; };
 		15CDA1F327E9B192006D3714 /* ExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CDA1F227E9B192006D3714 /* ExpenseTableViewCell.swift */; };
+		15CDA1F527EA08B7006D3714 /* InEpxensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CDA1F427EA08B7006D3714 /* InEpxensesViewController.swift */; };
 		98FCFB1D6334798634FF9612 /* Pods_degreeProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A12DD9606FBA5A8D8CFCF6AC /* Pods_degreeProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		15CDA1EB27E686B3006D3714 /* IncomeInsertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomeInsertView.xib; sourceTree = "<group>"; };
 		15CDA1EF27E9A580006D3714 /* RealmPersitance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmPersitance.swift; sourceTree = "<group>"; };
 		15CDA1F227E9B192006D3714 /* ExpenseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTableViewCell.swift; sourceTree = "<group>"; };
+		15CDA1F427EA08B7006D3714 /* InEpxensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InEpxensesViewController.swift; sourceTree = "<group>"; };
 		6BFA50CA981AA523D98C8E5D /* Pods-degreeProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-degreeProject.release.xcconfig"; path = "Target Support Files/Pods-degreeProject/Pods-degreeProject.release.xcconfig"; sourceTree = "<group>"; };
 		77C118E3444AF19F79B21C5A /* Pods-degreeProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-degreeProject.debug.xcconfig"; path = "Target Support Files/Pods-degreeProject/Pods-degreeProject.debug.xcconfig"; sourceTree = "<group>"; };
 		A12DD9606FBA5A8D8CFCF6AC /* Pods_degreeProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_degreeProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +66,7 @@
 				15A766C327E4964700D37700 /* IncomeViewController.swift */,
 				15767E3527E3E1D4006AA9F1 /* GraphicViewController.swift */,
 				15A766C127E4963E00D37700 /* ExpensesViewController.swift */,
+				15CDA1F427EA08B7006D3714 /* InEpxensesViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 				15767E3C27E3E1D4006AA9F1 /* degreeProject.xcdatamodeld in Sources */,
 				150A9C4127E61E1C0009292E /* IncomeTableViewCell.swift in Sources */,
 				15767E3227E3E1D4006AA9F1 /* AppDelegate.swift in Sources */,
+				15CDA1F527EA08B7006D3714 /* InEpxensesViewController.swift in Sources */,
 				15A766C627E60CE800D37700 /* MainTabBarController.swift in Sources */,
 				15A766C427E4964700D37700 /* IncomeViewController.swift in Sources */,
 				15CDA1F027E9A580006D3714 /* RealmPersitance.swift in Sources */,
