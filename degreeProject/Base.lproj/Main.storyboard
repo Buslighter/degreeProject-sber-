@@ -435,7 +435,6 @@
         <!--In Epxenses View Controller-->
         <scene sceneID="0Qn-lm-SYi">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mxp-zQ-EJB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="uYh-Hr-lyl" customClass="InEpxensesViewController" customModule="degreeProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kab-E6-lrH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -560,6 +559,7 @@
                         <outlet property="plusButton" destination="3RL-lV-Xc5" id="OOt-ke-Ubj"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mxp-zQ-EJB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1866.6666666666667" y="83.705357142857139"/>
         </scene>

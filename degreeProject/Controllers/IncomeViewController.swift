@@ -42,16 +42,14 @@ class IncomeViewController: UIViewController {
     @IBOutlet var addNewIncomeButton: UIButton!
     @IBAction func addNewIncome(_ sender: Any) {
         let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-        print(dateFormatter.string(from: date))
         let items = IncomeObject()
         try! self.realm.write{
-            items.incomeDate = "\(dateFormatter.string(from: date))"
+            items.incomeDate = Calendar.current.date(byAdding: .hour, value: +3, to: date, wrappingComponents: true)
             var realmStr = summTextfield.text
             realmStr?.removeLast()
             items.incomeSum = realmStr
             self.realm.add(items)
+            
         }
         
         let item2 = IncomeResults
@@ -63,7 +61,7 @@ class IncomeViewController: UIViewController {
         IncomeTableView.reloadData()
     }
     @IBOutlet weak var blackoutView: UIView!
-    //Close InputMode without additing
+    //EXIT EDIT BY CLICKING BLACKSCREEN
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch? = touches.first
         if touch?.view == self.blackScreenView{
@@ -91,15 +89,13 @@ class IncomeViewController: UIViewController {
             summTextfield.becomeFirstResponder()
         }
         viewDidAppear(animated: true)
-        print(bottomConstraintInsertView)
     }
     
-    //Keyboard moves View
+    //KEYBOARD PUSHES UP VIEW
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             UIView.animate(withDuration: 2){
                 if self.bottomConstraintInsertView.constant == 0 {
-                let tabBar = MainTabBarController()
                     self.bottomConstraintInsertView.constant = 0
                     self.bottomConstraintInsertView.constant = keyboardSize.height-49
             }
@@ -110,18 +106,27 @@ class IncomeViewController: UIViewController {
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if bottomConstraintInsertView.constant != 0 {
             bottomConstraintInsertView.constant = 0
             }
-//        }
     }
-    
-    
-    
-    @IBOutlet weak var IncomeTableView: UITableView!
+    @objc func updateTimer(){IncomeTableView.reloadData()}
     override func viewDidLoad() {
         super.viewDidLoad()
+        //DATE FOR TEST
+        func addTestData(){
+            let date = Date()
+            let items = IncomeObject()
+            try! self.realm.write{
+                let yesterday =  Calendar.current.date(byAdding: .day, value: -2, to: date, wrappingComponents: true)
+                items.incomeDate=Calendar.current.date(byAdding: .hour, value: +3, to: yesterday!, wrappingComponents: true)
+                items.incomeSum = "1000"
+                self.realm.add(items)
+            }
+        }
+//        addTestData()
+        
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(IncomeViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(IncomeViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -130,25 +135,17 @@ class IncomeViewController: UIViewController {
             summ+=Double(i.incomeSum!)!
         }
         wholeSumm.text = "\(summ)"
-        
+        //TIMER
+        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         
         addIncomeBut.layer.cornerRadius = CGFloat(18)
         addNewIncomeButton.layer.cornerRadius = CGFloat(18)
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    @IBOutlet weak var IncomeTableView: UITableView!
 }
+
 extension IncomeViewController:UITableViewDataSource,UITableViewDelegate,delegateHeight{
     func getTBHeight(_ TBHeight: Double) {
         b = TBHeight
@@ -161,9 +158,52 @@ extension IncomeViewController:UITableViewDataSource,UITableViewDelegate,delegat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "incomeCell", for: indexPath) as! IncomeTableViewCell
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        var formattedDates = [Date]()
+        var sums = [String]()
+        let items = IncomeResults
+        let k = items.count
+        for i in 0..<k {
+            formattedDates.append(items[i].incomeDate!)
+            sums.append(items[i].incomeSum!)
+        }
+        let combined = zip(formattedDates, sums).sorted {$0.0 < $1.0}
+        formattedDates = combined.map {$0.0}
+        sums = combined.map {$0.1}
+        
+        
         let item = IncomeResults[indexPath.row]
-        cell.dateOfIncome.text = item.incomeDate ?? ""
-        cell.incomeAmount.text = "\(Double(item.incomeSum! ?? "0")!)"
+        let now = Date()
+        let currentTime = Calendar.current.date(byAdding: .hour, value: +3, to: now, wrappingComponents: true)
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: currentTime!, wrappingComponents: true)!
+        let preYesterday = Calendar.current.date(byAdding: .day, value: -1, to: yesterday, wrappingComponents: true)!
+        
+        print(yesterday)
+        if item.incomeDate! <= preYesterday{
+            cell.dateOfIncome.text = dateFormatter.string(from: item.incomeDate!)
+        } else if ((item.incomeDate! > preYesterday) && (item.incomeDate! <= yesterday)){
+            cell.dateOfIncome.text = "Вчера"
+        } else{
+            let calendar = Calendar.current
+            let currentHour = calendar.component(.hour, from: currentTime!)
+            let currentMinute = calendar.component(.minute, from: currentTime!)
+            let currentSecond = calendar.component(.second, from: currentTime!)
+            let transactionHour = calendar.component(.hour, from: item.incomeDate!)
+            let transactionMinute = calendar.component(.minute, from: item.incomeDate!)
+            let transactionSecond = calendar.component(.second, from: item.incomeDate!)
+            let hour = currentHour-transactionHour
+            let minute = currentMinute-transactionMinute
+            let second = currentSecond-transactionSecond
+            if hour == 0 && minute == 0{
+                cell.dateOfIncome.text =  "\(second) сек. назад"
+            } else if hour == 0{
+                cell.dateOfIncome.text = "\(minute) мин. назад"
+            } else{
+                cell.dateOfIncome.text =  "\(-hour) ч. назад"
+            }
+        }
+        cell.incomeAmount.text = "\(Double(item.incomeSum! )!)"
         return cell
     }
     
