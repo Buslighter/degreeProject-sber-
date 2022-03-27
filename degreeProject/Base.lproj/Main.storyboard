@@ -520,7 +520,7 @@
                                             </constraints>
                                         </view>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="expenseCell" rowHeight="96" id="jPy-6k-U2z">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="allExpense" rowHeight="96" id="jPy-6k-U2z" customClass="AllExpensesTableViewCell" customModule="degreeProject" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="66.5" width="414" height="96"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jPy-6k-U2z" id="oNc-uL-oME">
@@ -531,43 +531,47 @@
                                                             <rect key="frame" x="0.0" y="37" width="414" height="22"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
-                                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Лампочки" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="S74-en-3T9">
+                                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="For what" textAlignment="natural" minimumFontSize="6" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="dWL-bT-yKO">
                                                                     <rect key="frame" x="16" y="4" width="116" height="16"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="116" id="bxI-fT-lO9"/>
+                                                                        <constraint firstAttribute="width" constant="116" id="v4F-YI-vfp"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16.04.22" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="dGb-am-deG">
-                                                                    <rect key="frame" x="151" y="2.5" width="124" height="19.5"/>
+                                                                    <textInputTraits key="textInputTraits"/>
+                                                                </textField>
+                                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="When" textAlignment="natural" minimumFontSize="6" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="43h-8E-Yo2">
+                                                                    <rect key="frame" x="151" y="1.5" width="124" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8 000.0 Р" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="sPi-ez-cMx">
-                                                                    <rect key="frame" x="307" y="2.5" width="85" height="19.5"/>
+                                                                    <textInputTraits key="textInputTraits"/>
+                                                                </textField>
+                                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="How much" textAlignment="natural" minimumFontSize="6" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="zuh-M3-u8n">
+                                                                    <rect key="frame" x="307" y="2" width="85" height="20"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="85" id="0mQ-eQ-CSJ"/>
+                                                                        <constraint firstAttribute="width" constant="85" id="QzZ-Mi-gaM"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
+                                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                                </textField>
                                                             </subviews>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
-                                                                <constraint firstItem="sPi-ez-cMx" firstAttribute="leading" secondItem="dGb-am-deG" secondAttribute="trailing" constant="32" id="JzH-oB-yQb"/>
-                                                                <constraint firstItem="S74-en-3T9" firstAttribute="leading" secondItem="FwZ-8O-UQ0" secondAttribute="leading" constant="16" id="NBh-fh-Npv"/>
-                                                                <constraint firstItem="dGb-am-deG" firstAttribute="centerY" secondItem="S74-en-3T9" secondAttribute="centerY" id="O7S-Cw-SnZ"/>
-                                                                <constraint firstItem="sPi-ez-cMx" firstAttribute="centerY" secondItem="dGb-am-deG" secondAttribute="centerY" id="QwF-se-ub2"/>
-                                                                <constraint firstItem="S74-en-3T9" firstAttribute="leading" secondItem="FwZ-8O-UQ0" secondAttribute="leading" constant="16" id="VtJ-mb-gN7"/>
-                                                                <constraint firstItem="dGb-am-deG" firstAttribute="leading" secondItem="S74-en-3T9" secondAttribute="trailing" constant="19" id="ZTG-u2-nL0"/>
-                                                                <constraint firstAttribute="bottom" secondItem="S74-en-3T9" secondAttribute="bottom" constant="2" id="cFP-s6-A2K"/>
-                                                                <constraint firstAttribute="trailing" secondItem="sPi-ez-cMx" secondAttribute="trailing" constant="22" id="nrM-YG-BKi"/>
-                                                                <constraint firstItem="S74-en-3T9" firstAttribute="top" secondItem="FwZ-8O-UQ0" secondAttribute="top" constant="4" id="wHb-VL-J3Z"/>
+                                                                <constraint firstItem="zuh-M3-u8n" firstAttribute="leading" secondItem="43h-8E-Yo2" secondAttribute="trailing" constant="32" id="1Cr-fo-R7B"/>
+                                                                <constraint firstItem="dWL-bT-yKO" firstAttribute="leading" secondItem="FwZ-8O-UQ0" secondAttribute="leading" constant="16" id="2U0-pN-kPg"/>
+                                                                <constraint firstAttribute="bottom" secondItem="dWL-bT-yKO" secondAttribute="bottom" constant="2" id="53w-Z6-Ohm"/>
+                                                                <constraint firstItem="43h-8E-Yo2" firstAttribute="leading" secondItem="dWL-bT-yKO" secondAttribute="trailing" constant="19" id="Ahw-87-kNu"/>
+                                                                <constraint firstItem="dWL-bT-yKO" firstAttribute="top" secondItem="FwZ-8O-UQ0" secondAttribute="top" constant="4" id="MNk-v3-9HN"/>
+                                                                <constraint firstItem="43h-8E-Yo2" firstAttribute="centerY" secondItem="dWL-bT-yKO" secondAttribute="centerY" id="Yq6-vZ-U96"/>
+                                                                <constraint firstAttribute="trailing" secondItem="zuh-M3-u8n" secondAttribute="trailing" constant="22" id="lML-St-323"/>
+                                                                <constraint firstItem="zuh-M3-u8n" firstAttribute="centerY" secondItem="dWL-bT-yKO" secondAttribute="centerY" id="uNI-87-xri"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="forWhat" destination="dWL-bT-yKO" id="fmF-XA-Kn8"/>
+                                                    <outlet property="howMuchText" destination="zuh-M3-u8n" id="r8c-Kt-NTh"/>
+                                                    <outlet property="whenText" destination="43h-8E-Yo2" id="EUW-Xu-eEd"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>

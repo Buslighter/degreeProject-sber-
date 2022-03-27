@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		150A9C4127E61E1C0009292E /* IncomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150A9C4027E61E1C0009292E /* IncomeTableViewCell.swift */; };
+		1530D70E27F1072A00959C19 /* AllExpensesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1530D70D27F1072A00959C19 /* AllExpensesTableViewCell.swift */; };
 		15767E3227E3E1D4006AA9F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15767E3127E3E1D4006AA9F1 /* AppDelegate.swift */; };
 		15767E3427E3E1D4006AA9F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15767E3327E3E1D4006AA9F1 /* SceneDelegate.swift */; };
 		15767E3627E3E1D4006AA9F1 /* GraphicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15767E3527E3E1D4006AA9F1 /* GraphicViewController.swift */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		150A9C4027E61E1C0009292E /* IncomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeTableViewCell.swift; sourceTree = "<group>"; };
+		1530D70D27F1072A00959C19 /* AllExpensesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExpensesTableViewCell.swift; sourceTree = "<group>"; };
 		15767E2E27E3E1D4006AA9F1 /* degreeProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = degreeProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15767E3127E3E1D4006AA9F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15767E3327E3E1D4006AA9F1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				150A9C4027E61E1C0009292E /* IncomeTableViewCell.swift */,
 				15CDA1EB27E686B3006D3714 /* IncomeInsertView.xib */,
 				15A766C527E60CE800D37700 /* MainTabBarController.swift */,
+				1530D70D27F1072A00959C19 /* AllExpensesTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				15A766C627E60CE800D37700 /* MainTabBarController.swift in Sources */,
 				15A766C427E4964700D37700 /* IncomeViewController.swift in Sources */,
 				15CDA1F027E9A580006D3714 /* RealmPersitance.swift in Sources */,
+				1530D70E27F1072A00959C19 /* AllExpensesTableViewCell.swift in Sources */,
 				15CDA1F327E9B192006D3714 /* ExpenseTableViewCell.swift in Sources */,
 				15A766C227E4963E00D37700 /* ExpensesViewController.swift in Sources */,
 				15767E3427E3E1D4006AA9F1 /* SceneDelegate.swift in Sources */,
