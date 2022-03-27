@@ -61,7 +61,10 @@ class IncomeViewController: UIViewController {
         wholeSumm.text = "\(summ)"
         summTextfield.text = ""
         summTextfield.resignFirstResponder()
-        blackoutView.isHidden = true
+        UIView.animate(withDuration: 0.3){
+            self.blackScreenView.alpha = 0
+            self.blackoutView.isHidden = true
+        }
         IncomeTableView.reloadData()
     }
     @IBOutlet weak var blackoutView: UIView!
@@ -69,7 +72,10 @@ class IncomeViewController: UIViewController {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch? = touches.first
         if touch?.view == self.blackScreenView{
-        blackoutView.isHidden = true
+            UIView.animate(withDuration: 0.3){
+                self.blackScreenView.alpha = 0
+                self.blackoutView.isHidden = true
+            }
         func viewDidAppear(animated: Bool) {
             
             super.viewDidAppear(animated)
@@ -85,8 +91,11 @@ class IncomeViewController: UIViewController {
     @IBOutlet weak var currentBalance: UILabel!
     @IBOutlet weak var addIncomeBut: UIButton!
     @IBAction func addIncomeAction(_ sender: Any) {
-        blackoutView.isHidden = false
-        summLabel.isHidden = true
+        self.blackoutView.isHidden = false
+        UIView.animate(withDuration: 0.3){
+            self.blackScreenView.alpha = 0.35
+        }
+                summLabel.isHidden = true
         super.viewDidLoad()
         func viewDidAppear(animated: Bool) {
             super.viewDidAppear(animated)
@@ -123,16 +132,25 @@ class IncomeViewController: UIViewController {
             var now = Calendar.current.date(byAdding: .hour, value: +3, to: date, wrappingComponents: true)
             let items = IncomeObject()
             //insert how many minutes u want to get back
-            let minutes = 50
+            let minutes = -124
             let calendar = Calendar.current
+            let currentMinute = calendar.component(.minute, from: now!)
             try! self.realm.write{
 //                let yesterday =  Calendar.current.date(byAdding: .day, value: -2, to: now, wrappingComponents: true)
-                if minutes >= calendar.component(.minute, from: now!) {
-                    now = Calendar.current.date(byAdding: .hour, value: -1, to: now!, wrappingComponents: true)
+                if abs(minutes) >= currentMinute{
+                    var hours = 0
+                    if abs(minutes)/60>0{
+                        hours=minutes/60
+                    } else{
+                        hours = -1
+                    }
+                    now = Calendar.current.date(byAdding: .hour, value: hours, to: now!, wrappingComponents: true)
+                    now = Calendar.current.date(byAdding: .minute, value: minutes%60, to: now!, wrappingComponents: true)
+                } else{
+                    now = Calendar.current.date(byAdding: .minute, value: minutes, to: now!, wrappingComponents: true)
                 }
-                now = Calendar.current.date(byAdding: .minute, value: -(calendar.component(.minute, from: now!)+60-minutes), to: now!, wrappingComponents: true)
                 items.incomeDate = now
-                items.incomeSum = "60"
+                items.incomeSum = "12303"
                 self.realm.add(items)
             }
         }
@@ -201,35 +219,30 @@ extension IncomeViewController:UITableViewDataSource,UITableViewDelegate,delegat
             let currentHour = calendar.component(.hour, from: currentTime!)
             let currentMinute = calendar.component(.minute, from: currentTime!)
             let currentSecond = calendar.component(.second, from: currentTime!)
+            
             let transactionHour = calendar.component(.hour, from: transactionDate)
             let transactionMinute = calendar.component(.minute, from: transactionDate)
             let transactionSecond = calendar.component(.second, from: transactionDate)
-            var hour = abs(currentHour-transactionHour)
+            
+            let hour = abs(currentHour-transactionHour)
             var second = abs(currentSecond-transactionSecond)
-//            print(currentHour,transactionHour)
             var minute = abs(currentMinute-transactionMinute)
             if ((currentHour-transactionHour)*60+currentMinute-transactionMinute)<60 {
             if minute<=1 && ((currentMinute-transactionMinute)*60+currentSecond-transactionSecond)<60{
                 if minute==1{
                     second = 60-second
                 }
-//                print((currentMinute-transactionMinute)*60+currentSecond-transactionSecond)
-//                print(transactionMinute,transactionSecond)
-//                print(minute,second)
-               
                 cell.dateOfIncome.text =  "\(second) сек. назад"
-                
-//                print("\(second) : \(transactionDate) alala")
-                //((currentHour-transactionHour)*60+currentMinute-transactionMinute)<60
             } else{
                 if hour==1{
                     minute = 60-minute
                 }
                 cell.dateOfIncome.text = "\(minute) мин. назад"
-//                print(currentHour,currentMinute , transactionHour,transactionMinute, currentTime, transactionDate, currentSum)
+                
             }
             }else{
                 cell.dateOfIncome.text =  "\(hour) ч. назад"
+//                print(currentHour,currentMinute , transactionHour,transactionMinute, currentTime, transactionDate, currentSum)
             }
         }
         cell.incomeAmount.text = "\(Double(currentSum)!)"

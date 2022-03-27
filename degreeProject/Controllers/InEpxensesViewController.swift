@@ -25,7 +25,7 @@ class InEpxensesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        plusButton.layer.cornerRadius = plusButton.frame.size.width/2
+        plusButton.layer.cornerRadius = plusButton.frame.size.height/2
         plusButton.clipsToBounds = true
     }
 
