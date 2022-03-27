@@ -95,8 +95,8 @@ class ExpensesViewController: UIViewController {
         
         
         super.viewDidLoad()
-        addNewCategory.layer.cornerRadius = CGFloat(18.0)
-        saveCategory.layer.cornerRadius = CGFloat(18.0)
+        addNewCategory.layer.cornerRadius = 24
+        saveCategory.layer.cornerRadius = 24
         
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -168,8 +168,8 @@ class IncomeViewController: UIViewController {
         //TIMER
         Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         
-        addIncomeBut.layer.cornerRadius = CGFloat(18)
-        addNewIncomeButton.layer.cornerRadius = CGFloat(18)
+        addIncomeBut.layer.cornerRadius = 24
+        addNewIncomeButton.layer.cornerRadius = 24
         // Do any additional setup after loading the view.
     }
     
