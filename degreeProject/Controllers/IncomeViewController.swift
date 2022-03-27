@@ -7,6 +7,10 @@
 
 import UIKit
 import RealmSwift
+class mutatedResults{
+    var incomeSum: String?
+    var incomeDate: Date?
+}
 class IncomeViewController: UIViewController {
     @IBOutlet var wholeSumm: UILabel!
     var pIndicator = true
@@ -99,7 +103,7 @@ class IncomeViewController: UIViewController {
                     self.bottomConstraintInsertView.constant = 0
                     self.bottomConstraintInsertView.constant = keyboardSize.height-49
             }
-                print(self.b)
+                
                 self.view.layoutIfNeeded()
             }
         }
@@ -116,11 +120,19 @@ class IncomeViewController: UIViewController {
         //DATE FOR TEST
         func addTestData(){
             let date = Date()
+            var now = Calendar.current.date(byAdding: .hour, value: +3, to: date, wrappingComponents: true)
             let items = IncomeObject()
+            //insert how many minutes u want to get back
+            let minutes = 50
+            let calendar = Calendar.current
             try! self.realm.write{
-                let yesterday =  Calendar.current.date(byAdding: .day, value: -2, to: date, wrappingComponents: true)
-                items.incomeDate=Calendar.current.date(byAdding: .hour, value: +3, to: yesterday!, wrappingComponents: true)
-                items.incomeSum = "1000"
+//                let yesterday =  Calendar.current.date(byAdding: .day, value: -2, to: now, wrappingComponents: true)
+                if minutes >= calendar.component(.minute, from: now!) {
+                    now = Calendar.current.date(byAdding: .hour, value: -1, to: now!, wrappingComponents: true)
+                }
+                now = Calendar.current.date(byAdding: .minute, value: -(calendar.component(.minute, from: now!)+60-minutes), to: now!, wrappingComponents: true)
+                items.incomeDate = now
+                items.incomeSum = "60"
                 self.realm.add(items)
             }
         }
@@ -134,7 +146,7 @@ class IncomeViewController: UIViewController {
         for i in item1{
             summ+=Double(i.incomeSum!)!
         }
-        wholeSumm.text = "\(summ)"
+//        wholeSumm.text = "\(summ)"
         //TIMER
         Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         
@@ -148,8 +160,8 @@ class IncomeViewController: UIViewController {
 
 extension IncomeViewController:UITableViewDataSource,UITableViewDelegate,delegateHeight{
     func getTBHeight(_ TBHeight: Double) {
-        b = TBHeight
-        print(b)
+//        b = TBHeight
+//        print(b)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -168,42 +180,59 @@ extension IncomeViewController:UITableViewDataSource,UITableViewDelegate,delegat
             formattedDates.append(items[i].incomeDate!)
             sums.append(items[i].incomeSum!)
         }
-        let combined = zip(formattedDates, sums).sorted {$0.0 < $1.0}
+        let combined = zip(formattedDates, sums).sorted {$0.0 > $1.0}
         formattedDates = combined.map {$0.0}
         sums = combined.map {$0.1}
         
         
-        let item = IncomeResults[indexPath.row]
+        let transactionDate = formattedDates[indexPath.row]
+        let currentSum = sums[indexPath.row]
         let now = Date()
         let currentTime = Calendar.current.date(byAdding: .hour, value: +3, to: now, wrappingComponents: true)
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: currentTime!, wrappingComponents: true)!
         let preYesterday = Calendar.current.date(byAdding: .day, value: -1, to: yesterday, wrappingComponents: true)!
-        
-        print(yesterday)
-        if item.incomeDate! <= preYesterday{
-            cell.dateOfIncome.text = dateFormatter.string(from: item.incomeDate!)
-        } else if ((item.incomeDate! > preYesterday) && (item.incomeDate! <= yesterday)){
+//        print(yesterday)
+        if transactionDate <= preYesterday{
+            cell.dateOfIncome.text = dateFormatter.string(from: transactionDate)
+        } else if ((transactionDate > preYesterday) && (transactionDate <= yesterday)){
             cell.dateOfIncome.text = "Вчера"
         } else{
             let calendar = Calendar.current
             let currentHour = calendar.component(.hour, from: currentTime!)
             let currentMinute = calendar.component(.minute, from: currentTime!)
             let currentSecond = calendar.component(.second, from: currentTime!)
-            let transactionHour = calendar.component(.hour, from: item.incomeDate!)
-            let transactionMinute = calendar.component(.minute, from: item.incomeDate!)
-            let transactionSecond = calendar.component(.second, from: item.incomeDate!)
-            let hour = currentHour-transactionHour
-            let minute = currentMinute-transactionMinute
-            let second = currentSecond-transactionSecond
-            if hour == 0 && minute == 0{
+            let transactionHour = calendar.component(.hour, from: transactionDate)
+            let transactionMinute = calendar.component(.minute, from: transactionDate)
+            let transactionSecond = calendar.component(.second, from: transactionDate)
+            var hour = abs(currentHour-transactionHour)
+            var second = abs(currentSecond-transactionSecond)
+//            print(currentHour,transactionHour)
+            var minute = abs(currentMinute-transactionMinute)
+            if ((currentHour-transactionHour)*60+currentMinute-transactionMinute)<60 {
+            if minute<=1 && ((currentMinute-transactionMinute)*60+currentSecond-transactionSecond)<60{
+                if minute==1{
+                    second = 60-second
+                }
+//                print((currentMinute-transactionMinute)*60+currentSecond-transactionSecond)
+//                print(transactionMinute,transactionSecond)
+//                print(minute,second)
+               
                 cell.dateOfIncome.text =  "\(second) сек. назад"
-            } else if hour == 0{
-                cell.dateOfIncome.text = "\(minute) мин. назад"
+                
+//                print("\(second) : \(transactionDate) alala")
+                //((currentHour-transactionHour)*60+currentMinute-transactionMinute)<60
             } else{
-                cell.dateOfIncome.text =  "\(-hour) ч. назад"
+                if hour==1{
+                    minute = 60-minute
+                }
+                cell.dateOfIncome.text = "\(minute) мин. назад"
+//                print(currentHour,currentMinute , transactionHour,transactionMinute, currentTime, transactionDate, currentSum)
+            }
+            }else{
+                cell.dateOfIncome.text =  "\(hour) ч. назад"
             }
         }
-        cell.incomeAmount.text = "\(Double(item.incomeSum! )!)"
+        cell.incomeAmount.text = "\(Double(currentSum)!)"
         return cell
     }
     
