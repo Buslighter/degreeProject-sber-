@@ -46,10 +46,10 @@ class InEpxensesViewController: UIViewController {
     @IBAction func summTextfieldEditing(_ sender: Any) {
         isTextfieldsFilled()
     }
+    //FUNC TO MAKE BUTTON AVAILABLE AND DISABLE
     func isTextfieldsFilled(){
         if summTextfield.text?.count ?? 0 > 0{
             indicatorSumm = true
-            
         } else {indicatorSumm = false}
         if nameTextfield.text?.count ?? 0 > 0{
                     indicatorName = true

@@ -39,10 +39,12 @@ class IncomeViewController: UIViewController {
         if lastNumber != nil{
         summTextfield.text = str!+"\(lastNumber!)"+P
         }
+        isTextfieldFilled(textfield: summTextfield, button: addNewIncomeButton)
     }
     @IBOutlet weak var summTextfield: UITextField!
     @IBOutlet var blackScreenView: UIView!
     @IBOutlet weak var summLabel: UILabel!
+    //SAVE NEW INCOME
     @IBOutlet var addNewIncomeButton: UIButton!
     @IBAction func addNewIncome(_ sender: Any) {
         let date = Date()
@@ -90,11 +92,14 @@ class IncomeViewController: UIViewController {
     
     @IBOutlet weak var currentBalance: UILabel!
     @IBOutlet weak var addIncomeBut: UIButton!
+    //SHOW PANEL WITH INCOME INPUT
     @IBAction func addIncomeAction(_ sender: Any) {
         self.blackoutView.isHidden = false
         UIView.animate(withDuration: 0.3){
             self.blackScreenView.alpha = 0.35
         }
+        addNewIncomeButton.isUserInteractionEnabled = false
+        addNewIncomeButton.alpha = 0.5
                 summLabel.isHidden = true
         super.viewDidLoad()
         func viewDidAppear(animated: Bool) {

@@ -7,6 +7,20 @@
 
 import UIKit
 import RealmSwift
+
+func isTextfieldFilled(textfield: UITextField, button: UIButton){
+    if textfield.text?.count ?? 0 > 0{
+        UIView.animate(withDuration: 0.2){
+            button.alpha = 1
+            button.isUserInteractionEnabled = true
+        }
+    } else{ UIView.animate(withDuration: 0.8){
+        button.alpha = 0.5
+        button.isUserInteractionEnabled = false}
+    }
+}
+
+
 class ExpensesViewController: UIViewController {
     var realm = try! Realm()
     var ExpenseResults: Results<ExpenseCategoriesObject>{
@@ -15,6 +29,8 @@ class ExpensesViewController: UIViewController {
     
     @IBOutlet var addNewCategory: UIButton!
     @IBAction func addNewCategory(_ sender: Any) {
+        saveCategory.alpha = 0.5
+        saveCategory.isUserInteractionEnabled = false
         actionView.isHidden = false
         super.viewDidLoad()
         func viewDidAppear(animated: Bool) {
@@ -28,6 +44,7 @@ class ExpensesViewController: UIViewController {
         if categoryLabel.isHidden{
             categoryLabel.isHidden = false
         }
+        isTextfieldFilled(textfield: categoryNameTextfield, button: saveCategory)
     }
     @IBOutlet var bottomNewCategoryExpenseConstraint: NSLayoutConstraint!
     @IBOutlet var alertView: UIView!
