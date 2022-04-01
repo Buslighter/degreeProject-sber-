@@ -169,7 +169,7 @@ class IncomeViewController: UIViewController {
         for i in item1{
             summ+=Double(i.incomeSum!)!
         }
-//        wholeSumm.text = "\(summ)"
+        wholeSumm.text = "\(summ)"
         //TIMER
         Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         
@@ -183,8 +183,6 @@ class IncomeViewController: UIViewController {
 
 extension IncomeViewController:UITableViewDataSource,UITableViewDelegate,delegateHeight{
     func getTBHeight(_ TBHeight: Double) {
-//        b = TBHeight
-//        print(b)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -212,9 +210,21 @@ extension IncomeViewController:UITableViewDataSource,UITableViewDelegate,delegat
         let currentSum = sums[indexPath.row]
         let now = Date()
         let currentTime = Calendar.current.date(byAdding: .hour, value: +3, to: now, wrappingComponents: true)
-        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: currentTime!, wrappingComponents: true)!
-        let preYesterday = Calendar.current.date(byAdding: .day, value: -1, to: yesterday, wrappingComponents: true)!
-//        print(yesterday)
+        var yesterday = Date()
+        var preYesterday = Date()
+        if Calendar.current.component(.day, from: currentTime!) > 2{
+            yesterday = Calendar.current.date(byAdding: .day, value: -1, to: currentTime!, wrappingComponents: true)!
+            preYesterday = Calendar.current.date(byAdding: .day, value: -1, to: yesterday, wrappingComponents: true)!
+        } else if Calendar.current.component(.day, from: currentTime!) == 2{
+            yesterday = Calendar.current.date(byAdding: .day, value: -1, to: currentTime!, wrappingComponents: true)!
+            preYesterday = Calendar.current.date(byAdding: .day, value: -1, to: yesterday, wrappingComponents: true)!
+            preYesterday = Calendar.current.date(byAdding: .month, value: -1, to: preYesterday, wrappingComponents: true)!
+        }
+        else{
+            yesterday = Calendar.current.date(byAdding: .day, value: -1, to: currentTime!, wrappingComponents: true)!
+            yesterday = Calendar.current.date(byAdding: .month, value: -1, to: currentTime!, wrappingComponents: true)!
+            preYesterday = Calendar.current.date(byAdding: .day, value: -1, to: yesterday, wrappingComponents: true)!
+        }
         if transactionDate <= preYesterday{
             cell.dateOfIncome.text = dateFormatter.string(from: transactionDate)
         } else if ((transactionDate > preYesterday) && (transactionDate <= yesterday)){
@@ -243,7 +253,6 @@ extension IncomeViewController:UITableViewDataSource,UITableViewDelegate,delegat
                     minute = 60-minute
                 }
                 cell.dateOfIncome.text = "\(minute) мин. назад"
-                
             }
             }else{
                 cell.dateOfIncome.text =  "\(hour) ч. назад"
