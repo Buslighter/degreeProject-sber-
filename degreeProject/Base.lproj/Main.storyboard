@@ -573,6 +573,10 @@
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="uYh-Hr-lyl" id="zo9-Hi-7P0"/>
+                                            <outlet property="delegate" destination="uYh-Hr-lyl" id="nfh-Jg-7kf"/>
+                                        </connections>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zll-7l-dut">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -583,7 +587,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6K-6W-RGQ">
-                                                <rect key="frame" x="0.0" y="646" width="414" height="216"/>
+                                                <rect key="frame" x="0.0" y="587" width="414" height="275"/>
                                                 <subviews>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Наименование" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qlL-Za-4AH">
                                                         <rect key="frame" x="16" y="18" width="82" height="13.5"/>
@@ -598,20 +602,22 @@
                                                         <textInputTraits key="textInputTraits"/>
                                                         <connections>
                                                             <action selector="nameTextFieldEditing:" destination="uYh-Hr-lyl" eventType="editingChanged" id="0ka-rL-ANr"/>
+                                                            <action selector="nameTextFieldTouched:" destination="uYh-Hr-lyl" eventType="touchUpInside" id="rTr-px-3sh"/>
                                                         </connections>
                                                     </textField>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Наименование" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Hm-vp-PmC">
-                                                        <rect key="frame" x="16" y="80.5" width="82" height="13.5"/>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сумма" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Hm-vp-PmC">
+                                                        <rect key="frame" x="16" y="80.5" width="37.5" height="13.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                         <color key="textColor" red="0.61960792539999998" green="0.61960786580000005" blue="0.61960786580000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Наименование" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="WFp-qN-A9c">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Сумма" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="WFp-qN-A9c">
                                                         <rect key="frame" x="16" y="96" width="382" height="21"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                         <connections>
+                                                            <action selector="summTextFieldTouched:" destination="uYh-Hr-lyl" eventType="touchUpInside" id="euk-qt-lhn"/>
                                                             <action selector="summTextfieldEditing:" destination="uYh-Hr-lyl" eventType="editingChanged" id="etT-Hl-E8S"/>
                                                         </connections>
                                                     </textField>
@@ -641,11 +647,10 @@
                                                     <constraint firstAttribute="trailing" secondItem="YtI-AD-MSP" secondAttribute="trailing" constant="15" id="RFw-qd-3sP"/>
                                                     <constraint firstItem="qlL-Za-4AH" firstAttribute="leading" secondItem="Yzd-RL-fdH" secondAttribute="leading" constant="16" id="U4l-1U-4zz"/>
                                                     <constraint firstItem="npt-Xc-Er0" firstAttribute="leading" secondItem="qlL-Za-4AH" secondAttribute="leading" id="YKo-NT-E1h"/>
-                                                    <constraint firstAttribute="bottom" secondItem="YtI-AD-MSP" secondAttribute="bottom" constant="28" id="f7s-tp-tMH"/>
                                                     <constraint firstItem="WFp-qN-A9c" firstAttribute="trailing" secondItem="npt-Xc-Er0" secondAttribute="trailing" id="gmD-ms-5Y3"/>
                                                     <constraint firstItem="7Hm-vp-PmC" firstAttribute="leading" secondItem="qlL-Za-4AH" secondAttribute="leading" id="jac-DW-fOf"/>
                                                     <constraint firstItem="YtI-AD-MSP" firstAttribute="top" secondItem="WFp-qN-A9c" secondAttribute="bottom" constant="23" id="kXj-b1-epA"/>
-                                                    <constraint firstAttribute="height" constant="216" id="tF9-CD-a57"/>
+                                                    <constraint firstAttribute="height" constant="275" id="tF9-CD-a57"/>
                                                     <constraint firstItem="qlL-Za-4AH" firstAttribute="top" secondItem="Yzd-RL-fdH" secondAttribute="top" constant="18" id="w8y-v5-195"/>
                                                     <constraint firstItem="npt-Xc-Er0" firstAttribute="top" secondItem="qlL-Za-4AH" secondAttribute="bottom" constant="2" id="wge-cl-23h"/>
                                                 </constraints>

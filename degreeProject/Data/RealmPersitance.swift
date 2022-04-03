@@ -15,3 +15,4 @@ class IncomeObject: Object{
 class ExpenseCategoriesObject: Object{
     @objc dynamic var category: String?
 }
+

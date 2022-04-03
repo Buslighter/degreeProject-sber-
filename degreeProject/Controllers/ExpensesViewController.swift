@@ -140,6 +140,15 @@ extension ExpensesViewController: UITableViewDelegate, UITableViewDataSource{
         cell.categoryLabel.text = item.category
         return cell
     }
-    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCell.EditingStyle.delete){
+            let item = ExpenseResults[indexPath.row]
+            try! self.realm.write{
+                self.realm.delete(item)
+            }
+            tableView.reloadData()
+            
+        }
+    }
     
 }
