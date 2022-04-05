@@ -11,9 +11,68 @@ class mutatedResults{
     var incomeSum: String?
     var incomeDate: Date?
 }
-func makeTimeRight(){
-    
+//FUNC TO PROCCES DATE
+func makeTimeRight(transactionDate: Date) -> String{
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "dd.MM.yyyy"
+    var finalString = ""
+    let now = Date()
+    var currentTime = Calendar.current.date(byAdding: .hour, value: +3, to: now, wrappingComponents: true)
+    var yesterday = Date()
+    var preYesterday = Date()
+    switch Calendar.current.component(.day, from: currentTime!){
+    case 1:
+        yesterday = Calendar.current.date(byAdding: .month, value: -1, to: currentTime!, wrappingComponents: true)!
+        yesterday = Calendar.current.date(byAdding: .day, value: -1, to: yesterday, wrappingComponents: true)!
+        preYesterday = Calendar.current.date(byAdding: .day, value: -1, to: yesterday, wrappingComponents: true)!
+    case 2:
+        yesterday = Calendar.current.date(byAdding: .day, value: -1, to: currentTime!, wrappingComponents: true)!
+        preYesterday = Calendar.current.date(byAdding: .month, value: -1, to: yesterday, wrappingComponents: true)!
+        preYesterday = Calendar.current.date(byAdding: .day, value: -1, to: preYesterday, wrappingComponents: true)!
+    default :
+        yesterday = Calendar.current.date(byAdding: .day, value: -1, to: currentTime!, wrappingComponents: true)!
+        preYesterday = Calendar.current.date(byAdding: .day, value: -1, to: yesterday, wrappingComponents: true)!
+    }
+    if transactionDate <= preYesterday{
+        finalString = dateFormatter.string(from: transactionDate)
+    } else if ((transactionDate > preYesterday) && (transactionDate <= yesterday)){
+        finalString = "Вчера"
+    } else{
+        let calendar = Calendar.current
+        let currentHour = calendar.component(.hour, from: currentTime!)
+        let currentMinute = calendar.component(.minute, from: currentTime!)
+        let currentSecond = calendar.component(.second, from: currentTime!)
+        
+        let transactionHour = calendar.component(.hour, from: transactionDate)
+        let transactionMinute = calendar.component(.minute, from: transactionDate)
+        let transactionSecond = calendar.component(.second, from: transactionDate)
+        
+        var hour = abs(currentHour-transactionHour)
+        if transactionHour > currentHour && currentHour >= 0{
+            hour = 24-transactionHour+currentHour
+        }
+        var second = abs(currentSecond-transactionSecond)
+        var minute = abs(currentMinute-transactionMinute)
+        
+        if (hour*60+minute)<60 {
+            if minute<=1 && ((currentMinute-transactionMinute)*60+currentSecond-transactionSecond)<60{
+                if minute==1{
+                    second = 60-second
+                }
+                finalString =  "\(second) сек. назад"
+            } else{
+                if hour==1{
+                    minute = 60-minute
+                }
+                finalString = "\(minute) мин. назад"
+            }
+        }else{
+            finalString =  "\(hour) ч. назад"
+        }
+    }
+    return finalString
 }
+
 class IncomeViewController: UIViewController {
     @IBOutlet var wholeSumm: UILabel!
     var pIndicator = true
@@ -24,25 +83,24 @@ class IncomeViewController: UIViewController {
     @IBOutlet weak var tabBarIncome: UITabBarItem!
     var realm = try! Realm()
     var IncomeResults: Results<IncomeObject>{
-            get{return realm.objects(IncomeObject.self)}
+        get{return realm.objects(IncomeObject.self)}
     }
     var b:Double = 0
     @IBAction func summTextfieldAction(_ sender: Any) {
-        
         var str = summTextfield.text
         let lastNumber = summTextfield.text?.last?.wholeNumberValue
         let P = "Р"
         if summTextfield.text!.count != 0{
-        str?.removeLast()
+            str?.removeLast()
         }
         if summLabel.isHidden{
-        summLabel.isHidden = false
+            summLabel.isHidden = false
         }
         if summTextfield.text!.count>=2{
-        str?.removeLast()
+            str?.removeLast()
         }
         if lastNumber != nil{
-        summTextfield.text = str!+"\(lastNumber!)"+P
+            summTextfield.text = str!+"\(lastNumber!)"+P
         }
         isTextfieldFilled(textfield: summTextfield, button: addNewIncomeButton)
     }
@@ -82,13 +140,13 @@ class IncomeViewController: UIViewController {
                 self.blackScreenView.alpha = 0
                 self.blackoutView.isHidden = true
             }
-        func viewDidAppear(animated: Bool) {
-            
-            super.viewDidAppear(animated)
-            summTextfield.resignFirstResponder()
-            summTextfield.text = ""
-        }
-        viewDidAppear(animated: true)
+            func viewDidAppear(animated: Bool) {
+                
+                super.viewDidAppear(animated)
+                summTextfield.resignFirstResponder()
+                summTextfield.text = ""
+            }
+            viewDidAppear(animated: true)
         }
     }
     
@@ -104,7 +162,7 @@ class IncomeViewController: UIViewController {
         }
         addNewIncomeButton.isUserInteractionEnabled = false
         addNewIncomeButton.alpha = 0.5
-                summLabel.isHidden = true
+        summLabel.isHidden = true
         super.viewDidLoad()
         func viewDidAppear(animated: Bool) {
             super.viewDidAppear(animated)
@@ -120,19 +178,19 @@ class IncomeViewController: UIViewController {
                 if self.bottomConstraintInsertView.constant == 0 {
                     self.bottomConstraintInsertView.constant = 0
                     self.bottomConstraintInsertView.constant = keyboardSize.height-49
-            }
+                }
                 
                 self.view.layoutIfNeeded()
             }
         }
     }
-
+    
     @objc func keyboardWillHide(notification: NSNotification) {
-            if bottomConstraintInsertView.constant != 0 {
+        if bottomConstraintInsertView.constant != 0 {
             bottomConstraintInsertView.constant = 0
-            }
+        }
     }
-
+    
     @objc func updateTimer(){IncomeTableView.reloadData()}
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,7 +198,7 @@ class IncomeViewController: UIViewController {
         func addTestData(){
             let date = Date()
             var now = Calendar.current.date(byAdding: .hour, value: +3, to: date, wrappingComponents: true)
-//            now = Calendar.current.date(byAdding: .day, value: -2, to: now!, wrappingComponents: true)!
+            //            now = Calendar.current.date(byAdding: .day, value: -2, to: now!, wrappingComponents: true)!
             let items = IncomeObject()
             print(now)
             //insert how many minutes u want to get back
@@ -174,7 +232,7 @@ class IncomeViewController: UIViewController {
                 self.realm.add(items)
             }
         }
-//        addTestData()
+        //        addTestData()
         
         
         
@@ -206,68 +264,12 @@ extension IncomeViewController:UITableViewDataSource,UITableViewDelegate,delegat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "incomeCell", for: indexPath) as! IncomeTableViewCell
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
+        
         let item = IncomeResults
         let items = item.sorted(byKeyPath: "incomeDate",ascending: false)
         let transactionDate = items[indexPath.row].incomeDate!
         let currentSum = items[indexPath.row].incomeSum!
-        
-        let now = Date()
-        var currentTime = Calendar.current.date(byAdding: .hour, value: +3, to: now, wrappingComponents: true)
-        var yesterday = Date()
-        var preYesterday = Date()
-        switch Calendar.current.component(.day, from: currentTime!){
-        case 1:
-            yesterday = Calendar.current.date(byAdding: .month, value: -1, to: currentTime!, wrappingComponents: true)!
-            yesterday = Calendar.current.date(byAdding: .day, value: -1, to: yesterday, wrappingComponents: true)!
-            preYesterday = Calendar.current.date(byAdding: .day, value: -1, to: yesterday, wrappingComponents: true)!
-        case 2:
-            yesterday = Calendar.current.date(byAdding: .day, value: -1, to: currentTime!, wrappingComponents: true)!
-            preYesterday = Calendar.current.date(byAdding: .month, value: -1, to: yesterday, wrappingComponents: true)!
-            preYesterday = Calendar.current.date(byAdding: .day, value: -1, to: preYesterday, wrappingComponents: true)!
-        default :
-            yesterday = Calendar.current.date(byAdding: .day, value: -1, to: currentTime!, wrappingComponents: true)!
-            preYesterday = Calendar.current.date(byAdding: .day, value: -1, to: yesterday, wrappingComponents: true)!
-        }
-        if transactionDate <= preYesterday{
-            cell.dateOfIncome.text = dateFormatter.string(from: transactionDate)
-        } else if ((transactionDate > preYesterday) && (transactionDate <= yesterday)){
-            cell.dateOfIncome.text = "Вчера"
-        } else{
-            let calendar = Calendar.current
-            let currentHour = calendar.component(.hour, from: currentTime!)
-            let currentMinute = calendar.component(.minute, from: currentTime!)
-            let currentSecond = calendar.component(.second, from: currentTime!)
-
-            let transactionHour = calendar.component(.hour, from: transactionDate)
-            let transactionMinute = calendar.component(.minute, from: transactionDate)
-            let transactionSecond = calendar.component(.second, from: transactionDate)
-            
-            var hour = abs(currentHour-transactionHour)
-            if transactionHour > currentHour && currentHour >= 0{
-                hour = 24-transactionHour+currentHour
-            }
-            var second = abs(currentSecond-transactionSecond)
-            var minute = abs(currentMinute-transactionMinute)
-            
-            if (hour*60+minute)<60 {
-            if minute<=1 && ((currentMinute-transactionMinute)*60+currentSecond-transactionSecond)<60{
-                if minute==1{
-                    second = 60-second
-                }
-                cell.dateOfIncome.text =  "\(second) сек. назад"
-            } else{
-                if hour==1{
-                    minute = 60-minute
-                }
-                cell.dateOfIncome.text = "\(minute) мин. назад"
-            }
-            }else{
-                cell.dateOfIncome.text =  "\(hour) ч. назад"
-            }
-            print(transactionDate,currentTime,item[indexPath.row].incomeSum)
-        }
+        cell.dateOfIncome.text = makeTimeRight(transactionDate: transactionDate)
         cell.incomeAmount.text = "\(Double(currentSum)!)"
         return cell
     }
@@ -280,7 +282,6 @@ extension IncomeViewController:UITableViewDataSource,UITableViewDelegate,delegat
                 self.realm.delete(item)
             }
             tableView.reloadData()
-            
         }
     }
     

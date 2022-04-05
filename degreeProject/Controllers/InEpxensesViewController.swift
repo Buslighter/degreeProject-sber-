@@ -7,11 +7,20 @@
 
 import UIKit
 import SwiftUI
+import RealmSwift
 
 class InEpxensesViewController: UIViewController {
+    var realm = try! Realm()
+    var ExpenseResults: Results<ExpenseCategoriesObject>{
+            get{return realm.objects(ExpenseCategoriesObject.self)}
+    }
+    var InExpenseResults: Results<InExpenseObjects>{
+            get{return realm.objects(InExpenseObjects.self)}
+    }
     var indexForCategories: IndexPath?
     var indicatorName = false
     var indicatorSumm = false
+    @IBOutlet var inExpenseTableView: UITableView!
     //BOTTOM CONSTRAINT
     @IBOutlet var bottomViewConstraint: NSLayoutConstraint!
     @IBOutlet var graphOfExpenses: UIButton!
@@ -21,7 +30,16 @@ class InEpxensesViewController: UIViewController {
     //SAVE NEW EXPENSE BUTTON
     @IBOutlet var saveNewExpenseButton: UIButton!
     @IBAction func saveNewExpense(_ sender: Any) {
-        
+        let item = realm.objects(ExpenseCategoriesObject.self)[indexForCategories!.row]
+        let items = InExpenseObjects()
+        try! self.realm.write{
+//            items.expenseCategory = ExpenseResults[indexForCategories!.row].category
+            items.expenseDate = Calendar.current.date(byAdding: .hour, value: -3, to: Date())
+            items.expenseSumm = summTextfield.text
+            items.nameOfExpense = nameTextfield.text
+            item.inExpenses.append(items)
+            realm.add(item, update: .modified)
+        }
         UIView.animate(withDuration: 0.3){
             self.blackoutView.alpha = 0
             self.actionView.isHidden = true
@@ -32,6 +50,7 @@ class InEpxensesViewController: UIViewController {
         summTextfield.text = ""
         nameLabel.isHidden = true
         summLabel.isHidden = true
+        inExpenseTableView.reloadData()
     }
     //TRANSFER TO ADDING EXPENSE
     @IBAction func addNewExpense(_ sender: Any) {
@@ -125,6 +144,7 @@ class InEpxensesViewController: UIViewController {
     }
     //VIEW DID LOAD
     override func viewDidLoad() {
+        
         //KEYBOARD NOTIFICATION INIT
         NotificationCenter.default.addObserver(self, selector: #selector(ExpensesViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ExpensesViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -132,24 +152,30 @@ class InEpxensesViewController: UIViewController {
         
         actionView.isHidden = true
         super.viewDidLoad()
+        print(ExpenseResults.count)
 //        self.tabBarController?.tabBar.isHidden=true
         graphOfExpenses.layer.cornerRadius = 24
         saveNewExpenseButton.layer.cornerRadius = 24
         plusButton.layer.cornerRadius = plusButton.frame.size.height/2
         plusButton.clipsToBounds = true
-        //
     }
 
 }
 extension InEpxensesViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return ExpenseResults[indexForCategories!.row].inExpenses.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "allExpense") as! AllExpensesTableViewCell
-        
-        
+        print(indexForCategories?.row)
+        let item = ExpenseResults[indexForCategories!.row]
+        let items = item.inExpenses.sorted(byKeyPath: "expenseDate",ascending: false)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        cell.forWhat.text = items[indexPath.row].nameOfExpense
+        cell.howMuchText.text = "\(Double(items[indexPath.row].expenseSumm!)!)"
+        cell.whenText.text = dateFormatter.string(from: items[indexPath.row].expenseDate!)
         return cell
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

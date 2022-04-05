@@ -296,7 +296,7 @@
                                                 </tableViewCellContentView>
                                                 <connections>
                                                     <outlet property="categoryLabel" destination="Vow-Ga-oEe" id="ttd-ek-1Mr"/>
-                                                    <segue destination="uYh-Hr-lyl" kind="show" id="5D5-Ft-ivQ"/>
+                                                    <segue destination="uYh-Hr-lyl" kind="show" identifier="segue" id="5D5-Ft-ivQ"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -703,6 +703,7 @@
                         <outlet property="blackoutView" destination="dyh-v4-IOG" id="pSk-6L-sOJ"/>
                         <outlet property="bottomViewConstraint" destination="Loj-yZ-d5f" id="mk3-OH-xSO"/>
                         <outlet property="graphOfExpenses" destination="ahw-gL-lce" id="RNf-tS-RMI"/>
+                        <outlet property="inExpenseTableView" destination="a1W-Hr-izh" id="kXw-YG-mMd"/>
                         <outlet property="nameLabel" destination="qlL-Za-4AH" id="Cbb-cY-t9J"/>
                         <outlet property="nameTextfield" destination="npt-Xc-Er0" id="tH9-Cp-FVM"/>
                         <outlet property="plusButton" destination="3RL-lV-Xc5" id="OOt-ke-Ubj"/>

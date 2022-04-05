@@ -14,5 +14,15 @@ class IncomeObject: Object{
 }
 class ExpenseCategoriesObject: Object{
     @objc dynamic var category: String?
+    var inExpenses = List<InExpenseObjects>()
+    override static func primaryKey() -> String? {
+        return "category"
+      }
 }
 
+class InExpenseObjects: Object{
+    @objc dynamic var nameOfExpense: String?
+    @objc dynamic var expenseSumm: String?
+    @objc dynamic var expenseDate: Date?
+//    @objc dynamic var expenseCategory: ExpenseCategoriesObject?
+}
