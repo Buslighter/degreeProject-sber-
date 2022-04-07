@@ -12,12 +12,13 @@ import RealmSwift
 class InEpxensesViewController: UIViewController {
     var realm = try! Realm()
     var ExpenseResults: Results<ExpenseCategoriesObject>{
-            get{return realm.objects(ExpenseCategoriesObject.self)}
+        get{return realm.objects(ExpenseCategoriesObject.self)}
     }
     var InExpenseResults: Results<InExpenseObjects>{
-            get{return realm.objects(InExpenseObjects.self)}
+        get{return realm.objects(InExpenseObjects.self)}
     }
-    var indexForCategories: IndexPath?
+    @IBOutlet var backToExpenses: UINavigationItem!
+    var indexForCategories: Int?
     var indicatorName = false
     var indicatorSumm = false
     @IBOutlet var inExpenseTableView: UITableView!
@@ -30,10 +31,10 @@ class InEpxensesViewController: UIViewController {
     //SAVE NEW EXPENSE BUTTON
     @IBOutlet var saveNewExpenseButton: UIButton!
     @IBAction func saveNewExpense(_ sender: Any) {
-        let item = realm.objects(ExpenseCategoriesObject.self)[indexForCategories!.row]
+        let item = realm.objects(ExpenseCategoriesObject.self)[indexForCategories!]
         let items = InExpenseObjects()
         try! self.realm.write{
-//            items.expenseCategory = ExpenseResults[indexForCategories!.row].category
+            //            items.expenseCategory = ExpenseResults[indexForCategories!.row].category
             items.expenseDate = Calendar.current.date(byAdding: .hour, value: -3, to: Date())
             items.expenseSumm = summTextfield.text
             items.nameOfExpense = nameTextfield.text
@@ -69,7 +70,7 @@ class InEpxensesViewController: UIViewController {
     @IBAction func nameTextFieldEditing(_ sender: Any) {
         isTextfieldsFilled()
     }
-
+    
     //SUMM BLOCK
     @IBOutlet var summLabel: UILabel!
     //SumTextfield
@@ -115,21 +116,21 @@ class InEpxensesViewController: UIViewController {
                 self.blackoutView.alpha = 0
                 self.actionView.isHidden = true
             }
-        func viewDidAppear(animated: Bool) {
-            super.viewDidAppear(animated)
-            nameTextfield.resignFirstResponder()
-            summTextfield.resignFirstResponder()
-            nameTextfield.text = ""
-            summTextfield.text = ""
-        }
-        viewDidAppear(animated: true)
+            func viewDidAppear(animated: Bool) {
+                super.viewDidAppear(animated)
+                nameTextfield.resignFirstResponder()
+                summTextfield.resignFirstResponder()
+                nameTextfield.text = ""
+                summTextfield.text = ""
+            }
+            viewDidAppear(animated: true)
         }
     }
     //KEYBOARD SHOW AND MOVE VIEW UP
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-                if self.bottomViewConstraint.constant == 0{
-                    UIView.animate(withDuration: 2){
+            if self.bottomViewConstraint.constant == 0{
+                UIView.animate(withDuration: 2){
                     self.bottomViewConstraint.constant = keyboardSize.height-60
                 }
                 self.view.layoutIfNeeded()
@@ -139,55 +140,54 @@ class InEpxensesViewController: UIViewController {
     //HIDE KEYBOARD AND MOVE VIEW BACK
     @objc func keyboardWillHide(notification: NSNotification) {
         if bottomViewConstraint.constant != 0 {
-                bottomViewConstraint.constant = 0
-            }
+            bottomViewConstraint.constant = 0
+        }
     }
     //VIEW DID LOAD
     override func viewDidLoad() {
         
+        
+        let item = realm.objects(ExpenseCategoriesObject.self)[indexForCategories!]
+        backToExpenses.title = item.category
+        
         //KEYBOARD NOTIFICATION INIT
         NotificationCenter.default.addObserver(self, selector: #selector(ExpensesViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ExpensesViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        //SAVE NEW EXPENSE BUTTON IS ENABLE
         
+        //SAVE NEW EXPENSE BUTTON IS ENABLE
         actionView.isHidden = true
         super.viewDidLoad()
-        print(ExpenseResults.count)
-//        self.tabBarController?.tabBar.isHidden=true
         graphOfExpenses.layer.cornerRadius = 24
         saveNewExpenseButton.layer.cornerRadius = 24
         plusButton.layer.cornerRadius = plusButton.frame.size.height/2
         plusButton.clipsToBounds = true
     }
-
+    
 }
 extension InEpxensesViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ExpenseResults[indexForCategories!.row].inExpenses.count
+        return ExpenseResults[indexForCategories!].inExpenses.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "allExpense") as! AllExpensesTableViewCell
-        print(indexForCategories?.row)
-        let item = ExpenseResults[indexForCategories!.row]
+        print(indexForCategories)
+        let item = ExpenseResults[indexForCategories!]
         let items = item.inExpenses.sorted(byKeyPath: "expenseDate",ascending: false)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
         cell.forWhat.text = items[indexPath.row].nameOfExpense
-        cell.howMuchText.text = "\(Double(items[indexPath.row].expenseSumm!)!)"
+        cell.howMuchText.text = "\(Double(items[indexPath.row].expenseSumm!)!)"+" P"
         cell.whenText.text = dateFormatter.string(from: items[indexPath.row].expenseDate!)
         return cell
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCell.EditingStyle.delete){
-//            var items = IncomeResults
-//            items = items.sorted(byKeyPath: "incomeDate",ascending: false)
-//            let item = items[indexPath.row]
-//            try! self.realm.write{
-//                self.realm.delete(item)
-//            }
+            let item = realm.objects(ExpenseCategoriesObject.self)[indexForCategories!]
+            try! self.realm.write{
+                self.realm.delete(item.inExpenses.sorted(byKeyPath: "expenseDate", ascending: false)[indexPath.row])
+            }
             tableView.reloadData()
-            
         }
     }
     

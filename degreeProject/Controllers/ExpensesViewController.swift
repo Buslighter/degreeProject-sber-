@@ -80,6 +80,8 @@ class ExpensesViewController: UIViewController {
         categoryNameTextfield.resignFirstResponder()
         actionView.isHidden = true
         expenseTableView.reloadData()
+       
+       
     }
     
     @IBOutlet var saveCategory: UIButton!
@@ -119,12 +121,15 @@ class ExpensesViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let cell = sender as? UITableViewCell, let index = expenseTableView.indexPath(for: cell){
             expenseTableView.deselectRow(at: index, animated: true)
-            if let vc = segue.destination as? InEpxensesViewController, segue.identifier == "segue"{
-                vc.indexForCategories = index
+            if let vc = segue.destination as? InEpxensesViewController, segue.identifier == "segueToInExpenses"{
+                vc.indexForCategories = index.row
                 print(index.row)
-                print(vc.indexForCategories?.row)
+                print(vc.indexForCategories)
             }
         }
+        if let vc = segue.destination as? InEpxensesViewController, segue.identifier == "segueToInExpensesFromButton"{
+            vc.indexForCategories = ExpenseResults.count
+            }
     }
 
 

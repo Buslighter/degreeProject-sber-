@@ -19,6 +19,7 @@
 		15A766C227E4963E00D37700 /* ExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A766C127E4963E00D37700 /* ExpensesViewController.swift */; };
 		15A766C427E4964700D37700 /* IncomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A766C327E4964700D37700 /* IncomeViewController.swift */; };
 		15A766C627E60CE800D37700 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A766C527E60CE800D37700 /* MainTabBarController.swift */; };
+		15C97F1127FF454F00F03480 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C97F1027FF454F00F03480 /* GraphView.swift */; };
 		15CDA1EC27E686B4006D3714 /* IncomeInsertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15CDA1EB27E686B3006D3714 /* IncomeInsertView.xib */; };
 		15CDA1F027E9A580006D3714 /* RealmPersitance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CDA1EF27E9A580006D3714 /* RealmPersitance.swift */; };
 		15CDA1F327E9B192006D3714 /* ExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CDA1F227E9B192006D3714 /* ExpenseTableViewCell.swift */; };
@@ -41,6 +42,7 @@
 		15A766C127E4963E00D37700 /* ExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
 		15A766C327E4964700D37700 /* IncomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeViewController.swift; sourceTree = "<group>"; };
 		15A766C527E60CE800D37700 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		15C97F1027FF454F00F03480 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GraphView.swift; path = degreeProject/GraphView.swift; sourceTree = SOURCE_ROOT; };
 		15CDA1EB27E686B3006D3714 /* IncomeInsertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomeInsertView.xib; sourceTree = "<group>"; };
 		15CDA1EF27E9A580006D3714 /* RealmPersitance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmPersitance.swift; sourceTree = "<group>"; };
 		15CDA1F227E9B192006D3714 /* ExpenseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTableViewCell.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 			children = (
 				15A766C327E4964700D37700 /* IncomeViewController.swift */,
 				15767E3527E3E1D4006AA9F1 /* GraphicViewController.swift */,
+				15C97F1027FF454F00F03480 /* GraphView.swift */,
 				15A766C127E4963E00D37700 /* ExpensesViewController.swift */,
 				15CDA1F427EA08B7006D3714 /* InEpxensesViewController.swift */,
 			);
@@ -267,6 +270,7 @@
 				15767E3227E3E1D4006AA9F1 /* AppDelegate.swift in Sources */,
 				15CDA1F527EA08B7006D3714 /* InEpxensesViewController.swift in Sources */,
 				15A766C627E60CE800D37700 /* MainTabBarController.swift in Sources */,
+				15C97F1127FF454F00F03480 /* GraphView.swift in Sources */,
 				15A766C427E4964700D37700 /* IncomeViewController.swift in Sources */,
 				15CDA1F027E9A580006D3714 /* RealmPersitance.swift in Sources */,
 				1530D70E27F1072A00959C19 /* AllExpensesTableViewCell.swift in Sources */,
