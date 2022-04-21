@@ -28,29 +28,48 @@ class GraphicViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        if isItFromInExpenses ?? false{
+            if ExpenseResults[categoryIndex!].inExpenses.count == 0{
+                monthButOut.isEnabled = false
+                weekButOut.isEnabled = false
+                quarterButOut.isEnabled = false
+                allTimeButOut.isEnabled = false
+            }else{
+                monthButOut.isEnabled = true
+                weekButOut.isEnabled = true
+                quarterButOut.isEnabled = true
+                allTimeButOut.isEnabled = true
+            }
+        }
         chosenButton = 1
         sumDates()
         
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    @IBOutlet var weekButOut: UIButton!
     @IBAction func weekButton(_ sender: Any) {
         chosenButton = 1
         buttonClicked()
     }
     
+    @IBOutlet var monthButOut: UIButton!
     @IBAction func monthButton(_ sender: Any) {
         chosenButton = 2
         buttonClicked()
     }
+    @IBOutlet var quarterButOut: UIButton!
     @IBAction func quarterButton(_ sender: Any) {
         chosenButton = 3
         buttonClicked()
     }
     
+    @IBOutlet var allTimeButOut: UIButton!
     @IBAction func allTimeButton(_ sender: Any) {
-        chosenButton = 4
-        buttonClicked()
+        if ExpenseResults[categoryIndex!].inExpenses.count != 0{
+            chosenButton = 4
+            buttonClicked()
+        }
     }
     func buttonClicked(){
         makeGraphic(incomeSums: incomeArraySums, incomeDates: incomeArrayDates, indexes: indexArray, expenseSums: expenseArraySums, expenseDates: expenseArrayDates, itIsSingleGraph: itIsSingleGraph, whichButtonSelected: chosenButton!)
@@ -62,7 +81,7 @@ class GraphicViewController: UIViewController {
             dateFormatter.dateFormat = "dd.MM"
             dateFormatter.timeZone = TimeZone(secondsFromGMT: secondsFromGMT)
             if isItFromInExpenses!{
-                if ExpenseResults.count != 0{
+                if ExpenseResults[categoryIndex!].inExpenses.count != 0{
                     let expenseRes = ExpenseResults[categoryIndex!]
                     let expenses = expenseRes.inExpenses.sorted(byKeyPath: "expenseDate",ascending: true)
                     let expenseDatesString = expenses.map{ dateFormatter.string(from: $0.expenseDate!) }
@@ -100,9 +119,10 @@ class GraphicViewController: UIViewController {
                         }
                         
                     }
-                    
+                    itIsSingleGraph = true
+                    buttonClicked()
                 }
-                itIsSingleGraph = true
+                
             }  else {
                 let expenseRes = ExpenseResults
                 let expenses = expenseRes.sorted(byKeyPath: "expenseDate",ascending: false)
@@ -123,9 +143,10 @@ class GraphicViewController: UIViewController {
                     }
                 }
                 itIsSingleGraph = false
+                buttonClicked()
             }
             
-            buttonClicked()
+            
         }
     }
     
@@ -176,12 +197,13 @@ class GraphicViewController: UIViewController {
         GraphView.setVisibleXRangeMinimum(7)
         print(indexes.count, expenseSums.count)
         GraphView.xAxis.labelPosition = .bottom
-//                GraphView.leftAxis = yAxisStyle
+        //                GraphView.leftAxis = yAxisStyle
         GraphView.xAxis.valueFormatter = IndexAxisValueFormatter(values: expenseDatesString)
         GraphView.xAxis.granularity = 1
         GraphView.rightAxis.enabled = false
         GraphView.data = chartData
-        
+        GraphView.fitScreen()
+        GraphView.extraRightOffset = 30
     }
     
     

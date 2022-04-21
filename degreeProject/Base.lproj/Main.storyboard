@@ -33,6 +33,9 @@
                                                 <buttonConfiguration key="configuration" style="plain" title="неделя">
                                                     <fontDescription key="titleFontDescription" type="system" pointSize="22"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="weekButton:" destination="XwP-tr-BQN" eventType="touchUpInside" id="56O-tD-ohc"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWC-vT-T2C">
                                                 <rect key="frame" x="101" y="0.0" width="91.5" height="65"/>
@@ -41,6 +44,9 @@
                                                 <buttonConfiguration key="configuration" style="plain" title="месяц">
                                                     <fontDescription key="titleFontDescription" type="system" pointSize="22"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="monthButton:" destination="XwP-tr-BQN" eventType="touchUpInside" id="NEV-OJ-mTK"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cWu-Fy-YhD">
                                                 <rect key="frame" x="192.5" y="0.0" width="109.5" height="65"/>
@@ -49,6 +55,9 @@
                                                 <buttonConfiguration key="configuration" style="plain" title="квартал">
                                                     <fontDescription key="titleFontDescription" type="system" pointSize="22"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="quarterButton:" destination="XwP-tr-BQN" eventType="touchUpOutside" id="fqx-MN-Meh"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ZZ-dZ-8Hk">
                                                 <rect key="frame" x="302" y="0.0" width="62" height="65"/>
@@ -56,6 +65,9 @@
                                                 <buttonConfiguration key="configuration" style="plain" title="все">
                                                     <fontDescription key="titleFontDescription" type="system" pointSize="22"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="allTimeButton:" destination="XwP-tr-BQN" eventType="touchUpInside" id="CAO-JX-417"/>
+                                                </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Kqb-iY-SU9">
                                                 <rect key="frame" x="364" y="0.0" width="0.0" height="65"/>
@@ -94,6 +106,10 @@
                     <tabBarItem key="tabBarItem" title="Graphic" image="circle" catalog="system" selectedImage="circle" id="RQN-7m-6hg"/>
                     <connections>
                         <outlet property="GraphView" destination="wxD-NG-vqv" id="Hry-fR-rU0"/>
+                        <outlet property="allTimeButOut" destination="2ZZ-dZ-8Hk" id="TXS-nN-AUu"/>
+                        <outlet property="monthButOut" destination="zWC-vT-T2C" id="5uk-Ir-YYe"/>
+                        <outlet property="quarterButOut" destination="cWu-Fy-YhD" id="jlL-k2-vgz"/>
+                        <outlet property="weekButOut" destination="PMQ-bZ-IhG" id="rSm-Bz-ikX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EhF-SX-EaP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -901,6 +917,10 @@
                     <navigationItem key="navigationItem" id="09t-ui-AOY"/>
                     <connections>
                         <outlet property="GraphView" destination="er1-RW-Zxa" id="Nsg-ss-gLc"/>
+                        <outlet property="allTimeButOut" destination="HLQ-X7-6hT" id="4tq-oz-1Un"/>
+                        <outlet property="monthButOut" destination="zCs-os-O9t" id="MNN-wO-x2y"/>
+                        <outlet property="quarterButOut" destination="HyQ-xA-LCa" id="CQ0-wL-dNb"/>
+                        <outlet property="weekButOut" destination="DXd-mM-vIF" id="WBV-Mx-32K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XbG-W8-hrF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -18,21 +18,22 @@ func makeTimeRight(transactionDate: Date) -> String{
     let secondsFromGMT: Int = TimeZone.current.secondsFromGMT()
     dateFormatter.timeZone = TimeZone(secondsFromGMT: secondsFromGMT)
     var finalString = ""
-    let now = Date()
-    var currentTime = Calendar.current.date(byAdding: .hour, value: +3, to: now, wrappingComponents: true)
+    var now = Date()
+    now = Calendar.current.date(byAdding: .second, value: secondsFromGMT, to: now)!
+//    var now = Calendar.current.date(byAdding: .hour, value: +3, to: now, wrappingComponents: true)
     var yesterday = Date()
     var preYesterday = Date()
-    switch Calendar.current.component(.day, from: currentTime!){
+    switch Calendar.current.component(.day, from: now){
     case 1:
-        yesterday = Calendar.current.date(byAdding: .month, value: -1, to: currentTime!, wrappingComponents: true)!
+        yesterday = Calendar.current.date(byAdding: .month, value: -1, to: now, wrappingComponents: true)!
         yesterday = Calendar.current.date(byAdding: .day, value: -1, to: yesterday, wrappingComponents: true)!
         preYesterday = Calendar.current.date(byAdding: .day, value: -1, to: yesterday, wrappingComponents: true)!
     case 2:
-        yesterday = Calendar.current.date(byAdding: .day, value: -1, to: currentTime!, wrappingComponents: true)!
+        yesterday = Calendar.current.date(byAdding: .day, value: -1, to: now, wrappingComponents: true)!
         preYesterday = Calendar.current.date(byAdding: .month, value: -1, to: yesterday, wrappingComponents: true)!
         preYesterday = Calendar.current.date(byAdding: .day, value: -1, to: preYesterday, wrappingComponents: true)!
     default :
-        yesterday = Calendar.current.date(byAdding: .day, value: -1, to: currentTime!, wrappingComponents: true)!
+        yesterday = Calendar.current.date(byAdding: .day, value: -1, to: now, wrappingComponents: true)!
         preYesterday = Calendar.current.date(byAdding: .day, value: -1, to: yesterday, wrappingComponents: true)!
     }
     if transactionDate <= preYesterday{
@@ -41,9 +42,9 @@ func makeTimeRight(transactionDate: Date) -> String{
         finalString = "Вчера"
     } else{
         let calendar = Calendar.current
-        let currentHour = calendar.component(.hour, from: currentTime!)
-        let currentMinute = calendar.component(.minute, from: currentTime!)
-        let currentSecond = calendar.component(.second, from: currentTime!)
+        let currentHour = calendar.component(.hour, from: now)
+        let currentMinute = calendar.component(.minute, from: now)
+        let currentSecond = calendar.component(.second, from: now)
         
         let transactionHour = calendar.component(.hour, from: transactionDate)
         let transactionMinute = calendar.component(.minute, from: transactionDate)
@@ -112,10 +113,16 @@ class IncomeViewController: UIViewController {
     //SAVE NEW INCOME
     @IBOutlet var addNewIncomeButton: UIButton!
     @IBAction func addNewIncome(_ sender: Any) {
-        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        let secondsFromGMT: Int = TimeZone.current.secondsFromGMT()
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: secondsFromGMT)
+        var finalString = ""
+        var now = Date()
+        now = Calendar.current.date(byAdding: .second, value: secondsFromGMT, to: now)!
         let items = IncomeObject()
         try! self.realm.write{
-            items.incomeDate = Calendar.current.date(byAdding: .hour, value: +3, to: date, wrappingComponents: true)
+            items.incomeDate = now
             var realmStr = summTextfield.text
             realmStr?.removeLast()
             items.incomeSum = realmStr
