@@ -15,6 +15,8 @@ class mutatedResults{
 func makeTimeRight(transactionDate: Date) -> String{
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "dd.MM.yyyy"
+    let secondsFromGMT: Int = TimeZone.current.secondsFromGMT()
+    dateFormatter.timeZone = TimeZone(secondsFromGMT: secondsFromGMT)
     var finalString = ""
     let now = Date()
     var currentTime = Calendar.current.date(byAdding: .hour, value: +3, to: now, wrappingComponents: true)
@@ -200,7 +202,7 @@ class IncomeViewController: UIViewController {
             var now = Calendar.current.date(byAdding: .hour, value: +3, to: date, wrappingComponents: true)
             //            now = Calendar.current.date(byAdding: .day, value: -2, to: now!, wrappingComponents: true)!
             let items = IncomeObject()
-            print(now)
+//            print(now)
             //insert how many minutes u want to get back
             let minutes = -124
             let calendar = Calendar.current

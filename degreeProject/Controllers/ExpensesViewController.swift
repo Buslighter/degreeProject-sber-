@@ -123,8 +123,6 @@ class ExpensesViewController: UIViewController {
             expenseTableView.deselectRow(at: index, animated: true)
             if let vc = segue.destination as? InEpxensesViewController, segue.identifier == "segueToInExpenses"{
                 vc.indexForCategories = index.row
-                print(index.row)
-                print(vc.indexForCategories)
             }
         }
         if let vc = segue.destination as? InEpxensesViewController, segue.identifier == "segueToInExpensesFromButton"{
@@ -145,7 +143,6 @@ extension ExpensesViewController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "expenseCell") as! ExpenseTableViewCell
         let item = ExpenseResults[indexPath.row]
         cell.categoryLabel.text = item.category
-        print(ExpenseResults.count)
         return cell
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

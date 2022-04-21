@@ -15,10 +15,86 @@
                     <view key="view" contentMode="scaleToFill" id="PAl-hg-tiN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cm8-TJ-We4">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wxD-NG-vqv" customClass="LineChartView" customModule="Charts">
+                                        <rect key="frame" x="8" y="233" width="386" height="428"/>
+                                        <color key="backgroundColor" systemColor="separatorColor"/>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="LXr-4F-gfG">
+                                        <rect key="frame" x="25" y="72" width="364" height="65"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PMQ-bZ-IhG">
+                                                <rect key="frame" x="0.0" y="0.0" width="101" height="65"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="неделя">
+                                                    <fontDescription key="titleFontDescription" type="system" pointSize="22"/>
+                                                </buttonConfiguration>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWC-vT-T2C">
+                                                <rect key="frame" x="101" y="0.0" width="91.5" height="65"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="месяц">
+                                                    <fontDescription key="titleFontDescription" type="system" pointSize="22"/>
+                                                </buttonConfiguration>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cWu-Fy-YhD">
+                                                <rect key="frame" x="192.5" y="0.0" width="109.5" height="65"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="квартал">
+                                                    <fontDescription key="titleFontDescription" type="system" pointSize="22"/>
+                                                </buttonConfiguration>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ZZ-dZ-8Hk">
+                                                <rect key="frame" x="302" y="0.0" width="62" height="65"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="все">
+                                                    <fontDescription key="titleFontDescription" type="system" pointSize="22"/>
+                                                </buttonConfiguration>
+                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Kqb-iY-SU9">
+                                                <rect key="frame" x="364" y="0.0" width="0.0" height="65"/>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pqD-2B-vf4">
+                                                <rect key="frame" x="364" y="0.0" width="0.0" height="65"/>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BfW-VM-5eU">
+                                                <rect key="frame" x="364" y="0.0" width="0.0" height="65"/>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <viewLayoutGuide key="safeArea" id="dm3-Xm-MaZ"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="wxD-NG-vqv" secondAttribute="trailing" constant="20" id="6hP-zv-G50"/>
+                                    <constraint firstItem="LXr-4F-gfG" firstAttribute="leading" secondItem="cm8-TJ-We4" secondAttribute="leading" constant="25" id="8W8-kN-vlS"/>
+                                    <constraint firstItem="wxD-NG-vqv" firstAttribute="top" secondItem="LXr-4F-gfG" secondAttribute="bottom" constant="96" id="ITO-YL-Qz1"/>
+                                    <constraint firstItem="LXr-4F-gfG" firstAttribute="top" secondItem="cm8-TJ-We4" secondAttribute="top" constant="72" id="Jzl-Mo-94t"/>
+                                    <constraint firstAttribute="trailing" secondItem="LXr-4F-gfG" secondAttribute="trailing" constant="25" id="dzK-Ug-z1G"/>
+                                    <constraint firstAttribute="bottom" secondItem="wxD-NG-vqv" secondAttribute="bottom" constant="108" id="iFW-GZ-v2P"/>
+                                    <constraint firstItem="wxD-NG-vqv" firstAttribute="leading" secondItem="cm8-TJ-We4" secondAttribute="leading" constant="8" id="vyT-QE-jDi"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="jnv-tp-U33"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="cm8-TJ-We4" firstAttribute="top" secondItem="jnv-tp-U33" secondAttribute="top" id="I7a-Sr-aev"/>
+                            <constraint firstItem="cm8-TJ-We4" firstAttribute="trailing" secondItem="jnv-tp-U33" secondAttribute="trailing" id="jCF-Pg-VSE"/>
+                            <constraint firstItem="cm8-TJ-We4" firstAttribute="bottom" secondItem="jnv-tp-U33" secondAttribute="bottom" id="nNM-un-e7q"/>
+                            <constraint firstItem="cm8-TJ-We4" firstAttribute="leading" secondItem="jnv-tp-U33" secondAttribute="leading" id="voh-Bk-Xj4"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Graphic" image="circle" catalog="system" selectedImage="circle" id="RQN-7m-6hg"/>
+                    <connections>
+                        <outlet property="GraphView" destination="wxD-NG-vqv" id="Hry-fR-rU0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EhF-SX-EaP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -456,7 +532,7 @@
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="showGraphOfExpenses:" destination="uYh-Hr-lyl" eventType="touchUpInside" id="pRB-3j-A8b"/>
-                                            <segue destination="pSa-uU-MZw" kind="show" id="lDM-hs-nCl"/>
+                                            <segue destination="pSa-uU-MZw" kind="show" identifier="segueToGraphView" id="lDM-hs-nCl"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3RL-lV-Xc5">
@@ -739,7 +815,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tVY-Rg-aNm">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="er1-RW-Zxa" customClass="GraphView" customModule="degreeProject" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="er1-RW-Zxa" customClass="LineChartView" customModule="Charts">
                                         <rect key="frame" x="8" y="233" width="386" height="467"/>
                                         <color key="backgroundColor" systemColor="separatorColor"/>
                                     </view>
@@ -753,6 +829,9 @@
                                                 <buttonConfiguration key="configuration" style="plain" title="неделя">
                                                     <fontDescription key="titleFontDescription" type="system" pointSize="22"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="weekButton:" destination="pSa-uU-MZw" eventType="touchUpInside" id="kUR-fp-c5q"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCs-os-O9t">
                                                 <rect key="frame" x="101" y="0.0" width="91.5" height="65"/>
@@ -761,6 +840,9 @@
                                                 <buttonConfiguration key="configuration" style="plain" title="месяц">
                                                     <fontDescription key="titleFontDescription" type="system" pointSize="22"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="monthButton:" destination="pSa-uU-MZw" eventType="touchUpInside" id="vyP-ju-UUN"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HyQ-xA-LCa">
                                                 <rect key="frame" x="192.5" y="0.0" width="109.5" height="65"/>
@@ -769,6 +851,9 @@
                                                 <buttonConfiguration key="configuration" style="plain" title="квартал">
                                                     <fontDescription key="titleFontDescription" type="system" pointSize="22"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="quarterButton:" destination="pSa-uU-MZw" eventType="touchUpInside" id="fIY-Zw-oZn"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HLQ-X7-6hT">
                                                 <rect key="frame" x="302" y="0.0" width="62" height="65"/>
@@ -776,6 +861,9 @@
                                                 <buttonConfiguration key="configuration" style="plain" title="все">
                                                     <fontDescription key="titleFontDescription" type="system" pointSize="22"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="allTimeButton:" destination="pSa-uU-MZw" eventType="touchUpInside" id="RnM-ZU-Hnd"/>
+                                                </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ow0-3S-iMh">
                                                 <rect key="frame" x="364" y="0.0" width="0.0" height="65"/>
@@ -811,6 +899,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="09t-ui-AOY"/>
+                    <connections>
+                        <outlet property="GraphView" destination="er1-RW-Zxa" id="Nsg-ss-gLc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XbG-W8-hrF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

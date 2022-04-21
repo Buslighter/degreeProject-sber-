@@ -147,6 +147,51 @@ class InEpxensesViewController: UIViewController {
     override func viewDidLoad() {
         
         
+        //ADD TEST DATA
+        
+        func addTestData(){
+            let date = Date()
+            var now = Calendar.current.date(byAdding: .hour, value: +3, to: date, wrappingComponents: true)
+            //            now = Calendar.current.date(byAdding: .day, value: -2, to: now!, wrappingComponents: true)!
+            let item = realm.objects(ExpenseCategoriesObject.self)[indexForCategories!]
+            let items = InExpenseObjects()
+            let minutes = -124
+            let calendar = Calendar.current
+            let currentMinute = calendar.component(.minute, from: now!)
+            try! self.realm.write{
+                var yesterday =  Date()
+                switch Calendar.current.component(.day, from: now!){
+                case 1:
+                    yesterday = Calendar.current.date(byAdding: .month, value: -1, to: now!, wrappingComponents: true)!
+                    yesterday = Calendar.current.date(byAdding: .day, value: -1, to: yesterday, wrappingComponents: true)!
+                default:
+                    yesterday = Calendar.current.date(byAdding: .day, value: -1, to: now!, wrappingComponents: true)!
+                }
+                
+                if abs(minutes) >= currentMinute{
+                    var hours = 0
+                    if abs(minutes)/60>0{
+                        hours=minutes/60
+                    } else{
+                        hours = -1
+                    }
+                    now = Calendar.current.date(byAdding: .hour, value: hours, to: now!, wrappingComponents: true)
+                    now = Calendar.current.date(byAdding: .minute, value: minutes%60, to: now!, wrappingComponents: true)
+                } else{
+                    now = Calendar.current.date(byAdding: .minute, value: minutes, to: now!, wrappingComponents: true)
+                }
+                //            items.expenseCategory = ExpenseResults[indexForCategories!.row].category
+                items.expenseDate = yesterday
+                items.expenseSumm = "1111"
+                items.nameOfExpense = "test"
+                item.inExpenses.append(items)
+                realm.add(item, update: .modified)
+            }
+            //insert how many minutes u want to get back
+            
+            
+        }
+//        addTestData()
         let item = realm.objects(ExpenseCategoriesObject.self)[indexForCategories!]
         backToExpenses.title = item.category
         
@@ -162,6 +207,16 @@ class InEpxensesViewController: UIViewController {
         plusButton.layer.cornerRadius = plusButton.frame.size.height/2
         plusButton.clipsToBounds = true
     }
+    //TRANSFERING DATA TO GRAPHVIEW
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? GraphicViewController, segue.identifier == "segueToGraphView"{
+            vc.categoryIndex = indexForCategories
+            vc.isItFromInExpenses = true
+            }
+    }
+
+    
+    
     
 }
 extension InEpxensesViewController: UITableViewDelegate, UITableViewDataSource{
@@ -171,7 +226,6 @@ extension InEpxensesViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "allExpense") as! AllExpensesTableViewCell
-        print(indexForCategories)
         let item = ExpenseResults[indexForCategories!]
         let items = item.inExpenses.sorted(byKeyPath: "expenseDate",ascending: false)
         let dateFormatter = DateFormatter()
