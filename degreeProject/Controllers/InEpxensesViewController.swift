@@ -33,9 +33,12 @@ class InEpxensesViewController: UIViewController {
     @IBAction func saveNewExpense(_ sender: Any) {
         let item = realm.objects(ExpenseCategoriesObject.self)[indexForCategories!]
         let items = InExpenseObjects()
+        let secondsFromGMT: Int = TimeZone.current.secondsFromGMT()
+        var now = Date()
+        now = Calendar.current.date(byAdding: .second, value: secondsFromGMT, to: now)!
         try! self.realm.write{
             //            items.expenseCategory = ExpenseResults[indexForCategories!.row].category
-            items.expenseDate = Calendar.current.date(byAdding: .hour, value: -3, to: Date())
+            items.expenseDate = now
             items.expenseSumm = summTextfield.text
             items.nameOfExpense = nameTextfield.text
             item.inExpenses.append(items)
@@ -230,6 +233,8 @@ extension InEpxensesViewController: UITableViewDelegate, UITableViewDataSource{
         let items = item.inExpenses.sorted(byKeyPath: "expenseDate",ascending: false)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
+        let secondsFromGMT: Int = TimeZone.current.secondsFromGMT()
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: secondsFromGMT)
         cell.forWhat.text = items[indexPath.row].nameOfExpense
         cell.howMuchText.text = "\(Double(items[indexPath.row].expenseSumm!)!)"+" P"
         cell.whenText.text = dateFormatter.string(from: items[indexPath.row].expenseDate!)

@@ -113,10 +113,7 @@ class IncomeViewController: UIViewController {
     //SAVE NEW INCOME
     @IBOutlet var addNewIncomeButton: UIButton!
     @IBAction func addNewIncome(_ sender: Any) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
         let secondsFromGMT: Int = TimeZone.current.secondsFromGMT()
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: secondsFromGMT)
         var finalString = ""
         var now = Date()
         now = Calendar.current.date(byAdding: .second, value: secondsFromGMT, to: now)!
