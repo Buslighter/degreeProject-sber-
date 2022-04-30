@@ -8,8 +8,18 @@
 import UIKit
 import Charts
 import RealmSwift
+class dataEntries{
+    var category:String?
+    var sum:sumsEntries?
+    var dateTR:Date?
+}
+class sumsEntries{
+    var incSum:Double?
+    var expSum:Double?
+}
 class GraphicViewController: UIViewController {
     @IBOutlet var GraphView: LineChartView!
+    var entries = [dataEntries]()
     var isItFromInExpenses: Bool?
     var categoryIndex: Int?
     var chosenButton: Int?
@@ -68,10 +78,8 @@ class GraphicViewController: UIViewController {
     
     @IBOutlet var allTimeButOut: UIButton!
     @IBAction func allTimeButton(_ sender: Any) {
-        if ExpenseResults[categoryIndex!].inExpenses.count != 0{
             chosenButton = 4
             buttonClicked()
-        }
     }
     func buttonClicked(){
         makeGraphic(incomeSums: incomeArraySums, incomeDates: incomeArrayDates,indexesInc: indexArrayInc, indexesExp: indexArrayExp, expenseSums: expenseArraySums, expenseDates: expenseArrayDates, itIsSingleGraph: itIsSingleGraph, whichButtonSelected: chosenButton!)
@@ -120,7 +128,69 @@ class GraphicViewController: UIViewController {
         
         return (mutatedDates, mutatedTrans,indexArray)
     }
-    
+    //WRITE DATA
+    func sortDatesIndexes(){
+        var incInd = 0
+        var expInd = 0
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM"
+        func addIncome(category: String, addDate: Date, sum: Double){
+            let newEntry = dataEntries()
+            let sm = sumsEntries()
+            newEntry.category = category
+            newEntry.dateTR = addDate
+            if category=="Expense"{
+                sm.expSum = sum
+                newEntry.sum = sm
+                expInd+=1
+            }else if category=="Income"{
+                sm.incSum = sum
+                newEntry.sum = sm
+                incInd+=1
+            }
+            entries.append(newEntry)
+        }
+        for _ in 0..<expenseArraySums.count + incomeArraySums.count{
+            let newEntry = dataEntries()
+            var incCount = incomeArrayDates.count
+            var expCount = expenseArrayDates.count
+            if incInd==incCount{incCount=0}
+            if expInd==expCount{expCount=0}
+            
+            //FUNC TO ADD INFO TO CLASS
+            
+            if incInd<incomeArrayDates.count || expInd<expenseArrayDates.count{
+                if incCount==0{
+                    addIncome(category: "Expense", addDate: expenseArrayDates[expInd], sum: expenseArraySums[expInd])
+                    
+                }else if expCount==0{
+                    addIncome(category:  "Income", addDate: incomeArrayDates[incInd], sum:  incomeArraySums[incInd])
+                    
+                }else{
+                    if dateFormatter.string(from: incomeArrayDates[incInd]) != dateFormatter.string(from: expenseArrayDates[expInd]){
+                        if incomeArrayDates[incInd]<expenseArrayDates[expInd]  {
+                            addIncome(category:  "Income", addDate: incomeArrayDates[incInd], sum:  incomeArraySums[incInd])
+                            
+                        } else {
+                            addIncome(category: "Expense", addDate: expenseArrayDates[expInd], sum: expenseArraySums[expInd])
+                        }
+                        
+                    } else{
+                        newEntry.category = "Both"
+                        newEntry.sum?.incSum = incomeArraySums[incInd]
+                        newEntry.sum?.expSum = expenseArraySums[expInd]
+                        newEntry.dateTR = incomeArrayDates[incInd]
+                        incInd+=1
+                        expInd+=1
+                        entries.append(newEntry)
+                    }
+                }
+            } else{
+                break
+            }
+        }
+    }
+    //SUMS ARE GROUPED BY DATES
     func sumDates(){
         if isItFromInExpenses != nil{
             let dateFormatter = DateFormatter()
@@ -133,42 +203,7 @@ class GraphicViewController: UIViewController {
                     let expenses = expenseRes.inExpenses.sorted(byKeyPath: "expenseDate",ascending: true)
                     let expSum = Array(expenses.map{Double($0.expenseSumm!)!})
                     let expDate = Array(expenses.map{$0.expenseDate!})
-                    
                     let (embedExpDate,embedExpSumm,embedExpInd) = allTrans(incomeDates: expDate, incomeTrans: expSum)
-                    
-//                    var index = Double(0)
-//                    var summ = 0.0
-//                    for i in 0..<expenses.count{
-//                        if expenses.count>1{
-//                            if expenses.count-i > 1{
-//                                summ+=(Double(expenses[i].expenseSumm!)!)
-//                                if expenseDatesString[i] != expenseDatesString[i+1]{
-//                                    indexArray.append(index)
-//                                    index+=1
-//                                    expenseArrayDates.append(expenses[i].expenseDate!)
-//                                    expenseArraySums.append(summ)
-//                                    summ=0
-//                                }
-//                            } else{
-//                                if expenseDatesString[i] != expenseDatesString[i-1]{
-//                                    indexArray.append(index)
-//                                    expenseArrayDates.append(expenses[i].expenseDate!)
-//                                    expenseArraySums.append((Double(expenses[i].expenseSumm!)!))
-//                                } else{
-//                                    var lastSumm = expenseArraySums.last! + Double(expenses[i].expenseSumm!)!
-//                                    expenseArraySums.removeLast()
-//                                    expenseArraySums.append(lastSumm)
-//                                }
-//
-//                            }
-//
-//                        } else{
-//                            indexArray.append(Double(i))
-//                            expenseArrayDates.append(expenses[i].expenseDate!)
-//                            expenseArraySums.append(Double(expenses[i].expenseSumm!)!)
-//                        }
-//
-//                    }
                     expenseArraySums = embedExpSumm
                     expenseArrayDates = embedExpDate
                     indexArrayInc = embedExpInd
@@ -178,7 +213,6 @@ class GraphicViewController: UIViewController {
                 
             } else {
                 var expenseRes = ExpenseResults
-//                expenseRes = expenseRes.sorted(byKeyPath: "expenseDate",ascending: true)
                 let incomeRes = IncomeResults
                 let incomes = incomeRes.sorted(byKeyPath: "incomeDate",ascending: false)
                 var inExpenses = [InExpenseObjects]()
@@ -201,9 +235,9 @@ class GraphicViewController: UIViewController {
                 incomeArraySums = embedIncSum
                 incomeArrayDates = embedIncDate
                 
-                    
-                    itIsSingleGraph = false
-                    buttonClicked()
+                sortDatesIndexes()
+                itIsSingleGraph = false
+                buttonClicked()
                 
             }
         }
@@ -213,106 +247,87 @@ class GraphicViewController: UIViewController {
     //MAKING GRAPHIC
     func makeGraphic(incomeSums: [Double], incomeDates: [Date],indexesInc: [Double],indexesExp: [Double],expenseSums: [Double], expenseDates: [Date], itIsSingleGraph: Bool, whichButtonSelected: Int) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM"
+        let yAxisStyle = GraphView.leftAxis
+        let xAxisStyle = GraphView.xAxis
+//        GraphView.xAxis.granularity = 1
+        GraphView.rightAxis.enabled = false
+        yAxisStyle.labelFont = .boldSystemFont(ofSize: 9)
+        xAxisStyle.labelFont = .boldSystemFont(ofSize: 12)
+        yAxisStyle.setLabelCount(6, force: false)
+        yAxisStyle.axisMinimum = 0
+        xAxisStyle.axisMinimum = 0
+        GraphView.setVisibleXRange(minXRange: 5, maxXRange: 10)
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        let secondsFromGMT: Int = TimeZone.current.secondsFromGMT()
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: secondsFromGMT)
+        var now = Date()
+        now = Calendar.current.date(byAdding: .second, value: secondsFromGMT, to: now)!
+        var modifiedEntries = [dataEntries]()
+        
+        func calculateEntries(value: Calendar.Component, dateForm: String ){
+            var k = 0
+            if dateForm=="dd.MM"{k = 4}
+            for i in 0..<entries.count{
+                if (dateFormatter.calendar.component(value, from: entries[i].dateTR!)-dateFormatter.calendar.component(value, from: now))<k{
+                    modifiedEntries.append(entries[i])
+                }
+            }
+            dateFormatter.dateFormat = dateForm
+        }
         switch whichButtonSelected{
         case 1:
-            dateFormatter.dateFormat = "dd.MM"
+            calculateEntries(value: .weekday, dateForm: "EEEE")
         case 2:
-            dateFormatter.dateFormat = "dd.MM"
+            calculateEntries(value: .month, dateForm: "dd")
         case 3:
-            dateFormatter.dateFormat = "dd.MM"
+            calculateEntries(value: .month, dateForm: "dd.MM")
         case 4:
-            dateFormatter.dateFormat = "dd.MM.yyyy"
+            calculateEntries(value: .year, dateForm: "dd.MM.yyyy")
         default:
             print("button selection Error")
         }
-        
         var lineChartEntry1 = [ChartDataEntry]()
         var lineChartEntry2 = [ChartDataEntry]()
         var chartData = LineChartData()
         var expenseDatesString = expenseDates.map{ dateFormatter.string(from: $0) }
         if itIsSingleGraph{
             for i in 0..<expenseSums.count{
-                print(indexesInc[i], expenseSums[i])
                 lineChartEntry1.append(ChartDataEntry(x: indexesInc[i], y: expenseSums[i]))
             }
-            var line1ChartDataSet = LineChartDataSet(entries: lineChartEntry1, label: "Расходы")
             GraphView.xAxis.valueFormatter = IndexAxisValueFormatter(values: expenseDatesString)
         } else{
-                var line1ChartDataSet = LineChartDataSet(entries: lineChartEntry1, label: "Расходы")
-                line1ChartDataSet.colors = ChartColorTemplates.joyful()
-                var line2ChartDataSet = LineChartDataSet(entries: lineChartEntry1, label: "Доходы")
-                line2ChartDataSet.colors = ChartColorTemplates.joyful()
-                let newDateFormatter = DateFormatter()
-            newDateFormatter.dateFormat = "dd.MM.yyyy"
-            
-            var incomeDatesString = incomeDates.map{ newDateFormatter.string(from: $0) }
-            var expenseDatesString = expenseDates.map{ newDateFormatter.string(from: $0) }
-            var allDates = [String]()
-                var expInd = 0
-                var incInd = 0
-                
-            var index = 0.0
-            for i in 0..<(incomeDates.count+expenseDates.count){
-                var incCount = incomeDates.count
-                var expCount = expenseDates.count
-                if incInd==incCount{incCount=0}
-                if expInd==expCount{expCount=0}
-                if incInd<incomeDates.count || expInd<expenseDates.count{
-                    if incCount==0{
-                        lineChartEntry2.append(ChartDataEntry(x: index, y: expenseSums[expInd]))
-                        allDates.append(dateFormatter.string(from:(expenseDates[expInd])))
-                        expInd+=1
-                    } else if expCount==0{
-                        lineChartEntry1.append(ChartDataEntry(x: index, y: incomeSums[incInd]))
-                        allDates.append(dateFormatter.string(from:(incomeDates[incInd])))
-                        incInd+=1
-                    }else{
-                        if incomeDates[incInd]>expenseDates[expInd] && incomeDatesString[incInd] != expenseDatesString[expInd]{
-                            lineChartEntry1.append(ChartDataEntry(x: index, y: incomeSums[incInd]))
-                            allDates.append(dateFormatter.string(from:(incomeDates[incInd])))
-                            incInd+=1
-                        } else if incomeDates[incInd]<expenseDates[expInd] && incomeDatesString[incInd] != expenseDatesString[expInd]{
-                            lineChartEntry2.append(ChartDataEntry(x: index, y: expenseSums[expInd]))
-                            allDates.append(dateFormatter.string(from:(expenseDates[expInd])))
-                            expInd+=1
-                        } else{
-                            lineChartEntry1.append(ChartDataEntry(x: index, y: incomeSums[incInd]))
-                            lineChartEntry2.append(ChartDataEntry(x: index, y: expenseSums[expInd]))
-                            allDates.append(dateFormatter.string(from:(expenseDates[expInd])))
-                            incInd+=1
-                            expInd+=1
-                        }
-                    }
-                    index+=1
+            for i in 0..<entries.count{
+                if entries[i].category=="Expense"{
+                    lineChartEntry1.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.expSum)!))
+                } else if entries[i].category=="Income"{
+                    lineChartEntry2.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.incSum)!))
                 } else{
-                    break
+                    lineChartEntry1.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.expSum)!))
+                    lineChartEntry2.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.incSum)!))
                 }
             }
-            GraphView.xAxis.valueFormatter = IndexAxisValueFormatter(values: allDates)
+            let allDates = entries.map{$0.dateTR!}
+            let allDatesStr=allDates.map{dateFormatter.string(from: $0)}
+            GraphView.xAxis.valueFormatter = IndexAxisValueFormatter(values: allDatesStr)
+            
         }
-        let line1 = LineChartDataSet(entries: lineChartEntry1)
-        let line2 = LineChartDataSet(entries: lineChartEntry2)
-        line2.fillColor = NSUIColor.red
-        chartData.dataSets.append(line1)
-        if itIsSingleGraph != true{chartData.dataSets.append(line2)}
-        let yAxisStyle = GraphView.leftAxis
-        let xAxisStyle = GraphView.xAxis
-        yAxisStyle.labelFont = .boldSystemFont(ofSize: 9)
-        xAxisStyle.labelFont = .boldSystemFont(ofSize: 12)
-        yAxisStyle.setLabelCount(6, force: false)
-        yAxisStyle.axisMinimum = 0
-        xAxisStyle.axisMinimum = 0
-        GraphView.setVisibleXRange(minXRange: 5, maxXRange: 5)
+        let line1 = LineChartDataSet(entries: lineChartEntry1,label: "Расходы")
+        let line2 = LineChartDataSet(entries: lineChartEntry2, label: "Доходы")
+        line1.colors = [NSUIColor.red]
+        line1.circleColors = [NSUIColor.red]
+        if itIsSingleGraph{
+            chartData.dataSets.append(line1)
+            }
+        else{
+            chartData.dataSets.append(contentsOf: [line1,line2])
+        }
+       
         xAxisStyle.setLabelCount(indexesInc.count, force: true)
         yAxisStyle.granularity = 1
         GraphView.setVisibleXRangeMinimum(7)
-        print(indexesInc.count, expenseSums.count)
         GraphView.xAxis.labelPosition = .bottom
-        //                GraphView.leftAxis = yAxisStyle
         
-        GraphView.xAxis.granularity = 1
-        GraphView.rightAxis.enabled = false
+      
         GraphView.data = chartData
         GraphView.fitScreen()
         GraphView.extraRightOffset = 30
