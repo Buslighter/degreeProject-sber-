@@ -249,6 +249,7 @@ class GraphicViewController: UIViewController {
         let dateFormatter = DateFormatter()
         let yAxisStyle = GraphView.leftAxis
         let xAxisStyle = GraphView.xAxis
+        var scaleInd = 0
 //        GraphView.xAxis.granularity = 1
         GraphView.rightAxis.enabled = false
         yAxisStyle.labelFont = .boldSystemFont(ofSize: 9)
@@ -277,12 +278,16 @@ class GraphicViewController: UIViewController {
         switch whichButtonSelected{
         case 1:
             calculateEntries(value: .weekday, dateForm: "EEEE")
+            scaleInd=7
         case 2:
             calculateEntries(value: .month, dateForm: "dd")
+            scaleInd=30
         case 3:
             calculateEntries(value: .month, dateForm: "dd.MM")
+            scaleInd=6
         case 4:
             calculateEntries(value: .year, dateForm: "dd.MM.yyyy")
+            scaleInd=12
         default:
             print("button selection Error")
         }
@@ -315,16 +320,12 @@ class GraphicViewController: UIViewController {
         let line2 = LineChartDataSet(entries: lineChartEntry2, label: "Доходы")
         line1.colors = [NSUIColor.red]
         line1.circleColors = [NSUIColor.red]
-        if itIsSingleGraph{
-            chartData.dataSets.append(line1)
-            }
-        else{
-            chartData.dataSets.append(contentsOf: [line1,line2])
-        }
-       
-        xAxisStyle.setLabelCount(indexesInc.count, force: true)
+        if itIsSingleGraph{chartData.dataSets.append(line1)}
+        else{chartData.dataSets.append(contentsOf: [line1,line2])}
+        
+//        xAxisStyle.setLabelCount(scaleInd, force: true)
         yAxisStyle.granularity = 1
-        GraphView.setVisibleXRangeMinimum(7)
+//        GraphView.setVisibleXRangeMinimum(Double(scaleInd))
         GraphView.xAxis.labelPosition = .bottom
         
       
