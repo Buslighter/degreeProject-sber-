@@ -301,14 +301,15 @@ class GraphicViewController: UIViewController {
             }
             GraphView.xAxis.valueFormatter = IndexAxisValueFormatter(values: expenseDatesString)
         } else{
+            print(entries)
             for i in 0..<entries.count{
                 if entries[i].category=="Expense"{
-                    lineChartEntry1.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.expSum)!))
+                    lineChartEntry1.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.expSum) ?? 0))
                 } else if entries[i].category=="Income"{
-                    lineChartEntry2.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.incSum)!))
+                    lineChartEntry2.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.incSum) ?? 0))
                 } else{
-                    lineChartEntry1.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.expSum)!))
-                    lineChartEntry2.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.incSum)!))
+                    lineChartEntry1.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.expSum) ?? 0))
+                    lineChartEntry2.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.incSum) ?? 0))
                 }
             }
             let allDates = entries.map{$0.dateTR!}
@@ -320,6 +321,9 @@ class GraphicViewController: UIViewController {
         let line2 = LineChartDataSet(entries: lineChartEntry2, label: "Доходы")
         line1.colors = [NSUIColor.red]
         line1.circleColors = [NSUIColor.red]
+        //MARK: Если откомментить одну из строк и закоментить 2 следующие,то покажет одну линию расходов/доходов и данные там буду верными
+//        chartData.append(line1)
+//        chartData.append(line2)
         if itIsSingleGraph{chartData.dataSets.append(line1)}
         else{chartData.dataSets.append(contentsOf: [line1,line2])}
         
