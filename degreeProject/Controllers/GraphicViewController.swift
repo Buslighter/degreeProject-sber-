@@ -78,8 +78,8 @@ class GraphicViewController: UIViewController {
     
     @IBOutlet var allTimeButOut: UIButton!
     @IBAction func allTimeButton(_ sender: Any) {
-            chosenButton = 4
-            buttonClicked()
+        chosenButton = 4
+        buttonClicked()
     }
     func buttonClicked(){
         makeGraphic(incomeSums: incomeArraySums, incomeDates: incomeArrayDates,indexesInc: indexArrayInc, indexesExp: indexArrayExp, expenseSums: expenseArraySums, expenseDates: expenseArrayDates, itIsSingleGraph: itIsSingleGraph, whichButtonSelected: chosenButton!)
@@ -250,7 +250,7 @@ class GraphicViewController: UIViewController {
         let yAxisStyle = GraphView.leftAxis
         let xAxisStyle = GraphView.xAxis
         var scaleInd = 0
-//        GraphView.xAxis.granularity = 1
+        //        GraphView.xAxis.granularity = 1
         GraphView.rightAxis.enabled = false
         yAxisStyle.labelFont = .boldSystemFont(ofSize: 9)
         xAxisStyle.labelFont = .boldSystemFont(ofSize: 12)
@@ -293,46 +293,53 @@ class GraphicViewController: UIViewController {
         }
         var lineChartEntry1 = [ChartDataEntry]()
         var lineChartEntry2 = [ChartDataEntry]()
-        var chartData = LineChartData()
-        var expenseDatesString = expenseDates.map{ dateFormatter.string(from: $0) }
+        let chartData = LineChartData()
+        let expenseDatesString = expenseDates.map{ dateFormatter.string(from: $0) }
         if itIsSingleGraph{
             for i in 0..<expenseSums.count{
                 lineChartEntry1.append(ChartDataEntry(x: indexesInc[i], y: expenseSums[i]))
             }
             GraphView.xAxis.valueFormatter = IndexAxisValueFormatter(values: expenseDatesString)
         } else{
-            print(entries)
-            for i in 0..<entries.count{
-                if entries[i].category=="Expense"{
-                    lineChartEntry1.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.expSum) ?? 0))
-                } else if entries[i].category=="Income"{
-                    lineChartEntry2.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.incSum) ?? 0))
-                } else{
-                    lineChartEntry1.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.expSum) ?? 0))
-                    lineChartEntry2.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.incSum) ?? 0))
+            if entries.count != 0{
+                for i in 0..<entries.count{
+                    if entries[i].category=="Expense"{
+                        lineChartEntry1.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.expSum) ?? 0))
+                    } else if entries[i].category=="Income"{
+                        lineChartEntry2.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.incSum) ?? 0))
+                    } else{
+                        lineChartEntry1.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.expSum) ?? 0))
+                        lineChartEntry2.append(ChartDataEntry(x: Double(i), y: (entries[i].sum?.incSum) ?? 0))
+                    }
                 }
+                let allDates = entries.map{$0.dateTR!}
+                let allDatesStr=allDates.map{dateFormatter.string(from: $0)}
+                GraphView.xAxis.valueFormatter = IndexAxisValueFormatter(values: allDatesStr)
             }
-            let allDates = entries.map{$0.dateTR!}
-            let allDatesStr=allDates.map{dateFormatter.string(from: $0)}
-            GraphView.xAxis.valueFormatter = IndexAxisValueFormatter(values: allDatesStr)
-            
         }
         let line1 = LineChartDataSet(entries: lineChartEntry1,label: "Расходы")
         let line2 = LineChartDataSet(entries: lineChartEntry2, label: "Доходы")
         line1.colors = [NSUIColor.red]
         line1.circleColors = [NSUIColor.red]
         //MARK: Если откомментить одну из строк и закоментить 2 следующие,то покажет одну линию расходов/доходов и данные там буду верными
-//        chartData.append(line1)
-//        chartData.append(line2)
-        if itIsSingleGraph{chartData.dataSets.append(line1)}
-        else{chartData.dataSets.append(contentsOf: [line1,line2])}
+                chartData.append(line1)
+//        print(line1.count)
+//        print(chartData.dataSets)
+                chartData.append(line2)
+//        print(line2.count)
+//        print(chartData.dataSets)
+//        if itIsSingleGraph{chartData.dataSets.append(line1)}
+//        else{chartData.dataSets.append(contentsOf: [line1,line2])}
         
-//        xAxisStyle.setLabelCount(scaleInd, force: true)
+        xAxisStyle.setLabelCount(chartData.dataSetCount, force: true)
         yAxisStyle.granularity = 1
-//        GraphView.setVisibleXRangeMinimum(Double(scaleInd))
+        //        GraphView.setVisibleXRangeMinimum(Double(scaleInd))
+        
         GraphView.xAxis.labelPosition = .bottom
         
-      
+//        var endData = ChartData()
+//        endData.dataSets.append(contentsOf: chartData.dataSets)
+        
         GraphView.data = chartData
         GraphView.fitScreen()
         GraphView.extraRightOffset = 30
